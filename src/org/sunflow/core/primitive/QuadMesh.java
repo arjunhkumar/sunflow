@@ -271,8 +271,9 @@ public class QuadMesh implements PrimitiveList {
 
         Vector3 ng = new Vector3(nx, ny, nz);
         ng = state.transformNormalObjectToWorld(ng);
-        ng.normalize();
-        state.getGeoNormal().set(ng);
+        /** AR07 Modified to make Vector3 class primitive */
+        ng = ng.normalize();
+        state.setGeoNormal(ng);
 
         float k00 = (1 - u) * (1 - v);
         float k10 = u * (1 - v);
@@ -282,7 +283,7 @@ public class QuadMesh implements PrimitiveList {
         switch (normals.interp) {
             case NONE:
             case FACE: {
-                state.getNormal().set(ng);
+                state.setNormal(ng);
                 break;
             }
             case VERTEX: {
@@ -291,21 +292,26 @@ public class QuadMesh implements PrimitiveList {
                 int i32 = 3 * index2;
                 int i33 = 3 * index3;
                 float[] normals = this.normals.data;
-                state.getNormal().x = k00 * normals[i30 + 0] + k10 * normals[i31 + 0] + k11 * normals[i32 + 0] + k01 * normals[i33 + 0];
-                state.getNormal().y = k00 * normals[i30 + 1] + k10 * normals[i31 + 1] + k11 * normals[i32 + 1] + k01 * normals[i33 + 1];
-                state.getNormal().z = k00 * normals[i30 + 2] + k10 * normals[i31 + 2] + k11 * normals[i32 + 2] + k01 * normals[i33 + 2];
-                state.getNormal().set(state.transformNormalObjectToWorld(state.getNormal()));
-                state.getNormal().normalize();
+                /** AR07 Modified to make Vector3 class primitive */
+                float x = k00 * normals[i30 + 0] + k10 * normals[i31 + 0] + k11 * normals[i32 + 0] + k01 * normals[i33 + 0];
+                float y = k00 * normals[i30 + 1] + k10 * normals[i31 + 1] + k11 * normals[i32 + 1] + k01 * normals[i33 + 1];
+                float z = k00 * normals[i30 + 2] + k10 * normals[i31 + 2] + k11 * normals[i32 + 2] + k01 * normals[i33 + 2];
+                Vector3 v3 = new Vector3(x,y,z);
+                state.setNormal(state.transformNormalObjectToWorld(v3));
+                state.setNormal(state.getNormal().normalize());
+                
                 break;
             }
             case FACEVARYING: {
                 int idx = 3 * quad;
                 float[] normals = this.normals.data;
-                state.getNormal().x = k00 * normals[idx + 0] + k10 * normals[idx + 3] + k11 * normals[idx + 6] + k01 * normals[idx + 9];
-                state.getNormal().y = k00 * normals[idx + 1] + k10 * normals[idx + 4] + k11 * normals[idx + 7] + k01 * normals[idx + 10];
-                state.getNormal().z = k00 * normals[idx + 2] + k10 * normals[idx + 5] + k11 * normals[idx + 8] + k01 * normals[idx + 11];
-                state.getNormal().set(state.transformNormalObjectToWorld(state.getNormal()));
-                state.getNormal().normalize();
+                /** AR07 Modified to make Vector3 class primitive */
+                float x = k00 * normals[idx + 0] + k10 * normals[idx + 3] + k11 * normals[idx + 6] + k01 * normals[idx + 9];
+                float y = k00 * normals[idx + 1] + k10 * normals[idx + 4] + k11 * normals[idx + 7] + k01 * normals[idx + 10];
+                float z = k00 * normals[idx + 2] + k10 * normals[idx + 5] + k11 * normals[idx + 8] + k01 * normals[idx + 11];
+                Vector3 v3 = new Vector3(x,y,z);
+                state.setNormal(state.transformNormalObjectToWorld(state.getNormal()));
+                state.setNormal(state.getNormal().normalize());
                 break;
             }
         }
@@ -362,14 +368,15 @@ public class QuadMesh implements PrimitiveList {
                 state.setBasis(OrthoNormalBasis.makeFromW(state.getNormal()));
             } else {
                 float invdet = 1.f / determinant;
-                // Vector3 dpdu = new Vector3();
+                // Vector3 dpdu = new Vector3((dv2 * dp1.x - dv1 * dp2.x) * invdet);
                 // dpdu.x = (dv2 * dp1.x - dv1 * dp2.x) * invdet;
                 // dpdu.y = (dv2 * dp1.y - dv1 * dp2.y) * invdet;
                 // dpdu.z = (dv2 * dp1.z - dv1 * dp2.z) * invdet;
-                Vector3 dpdv = new Vector3();
-                dpdv.x = (-du2 * dp1.x + du1 * dp2.x) * invdet;
-                dpdv.y = (-du2 * dp1.y + du1 * dp2.y) * invdet;
-                dpdv.z = (-du2 * dp1.z + du1 * dp2.z) * invdet;
+                /** AR07 Modified to make Vector3 class primitive */
+                Vector3 dpdv = new Vector3((-du2 * dp1.x + du1 * dp2.x) * invdet,(-du2 * dp1.y + du1 * dp2.y) * invdet,(-du2 * dp1.z + du1 * dp2.z) * invdet);
+//                dpdv.x = (-du2 * dp1.x + du1 * dp2.x) * invdet;
+//                dpdv.y = (-du2 * dp1.y + du1 * dp2.y) * invdet;
+//                dpdv.z = (-du2 * dp1.z + du1 * dp2.z) * invdet;
                 dpdv = state.transformVectorObjectToWorld(dpdv);
                 // create basis in world space
                 state.setBasis(OrthoNormalBasis.makeFromWV(state.getNormal(), dpdv));

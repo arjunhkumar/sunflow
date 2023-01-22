@@ -43,20 +43,22 @@ public class GlassShader implements Shader {
         float neta = inside ? eta : 1.0f / eta;
 
         float dn = 2 * cos;
-        reflDir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
-        reflDir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
-        reflDir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
-
+        float x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
+        float y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
+        float z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
+        reflDir = new Vector3(x,y,z);
         // refracted ray
         float arg = 1 - (neta * neta * (1 - (cos * cos)));
         boolean tir = arg < 0;
         if (tir)
-            refrDir.x = refrDir.y = refrDir.z = 0;
+//            refrDir.x = refrDir.y = refrDir.z = 0;
+            refrDir = new Vector3();
         else {
             float nK = (neta * cos) - (float) Math.sqrt(arg);
-            refrDir.x = (neta * state.getRay().dx) + (nK * state.getNormal().x);
-            refrDir.y = (neta * state.getRay().dy) + (nK * state.getNormal().y);
-            refrDir.z = (neta * state.getRay().dz) + (nK * state.getNormal().z);
+            x = (neta * state.getRay().dx) + (nK * state.getNormal().x);
+            y = (neta * state.getRay().dy) + (nK * state.getNormal().y);
+            z = (neta * state.getRay().dz) + (nK * state.getNormal().z);
+            refrDir = new Vector3(x,y,z);
         }
 
         // compute Fresnel terms
@@ -101,10 +103,12 @@ public class GlassShader implements Shader {
             float cos = state.getCosND();
             power.mul(refl).mul(1.0f / avgR);
             float dn = 2 * cos;
-            Vector3 dir = new Vector3();
-            dir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
-            dir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
-            dir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
+            Vector3 dir = new Vector3((dn * state.getNormal().x) + state.getRay().getDirection().x,
+                    (dn * state.getNormal().y) + state.getRay().getDirection().y,
+                    (dn * state.getNormal().z) + state.getRay().getDirection().z);
+//            dir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
+//            dir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
+//            dir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
             state.traceReflectionPhoton(new Ray(state.getPoint(), dir), power);
         } else if (rnd < avgR + avgT) {
             state.faceforward();
@@ -123,15 +127,21 @@ public class GlassShader implements Shader {
             if (arg < 0) {
                 // TIR
                 float dn = 2 * cos;
-                dir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
-                dir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
-                dir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
+                dir = new Vector3((dn * state.getNormal().x) + state.getRay().getDirection().x,
+                        (dn * state.getNormal().y) + state.getRay().getDirection().y
+                        ,(dn * state.getNormal().z) + state.getRay().getDirection().z);
+//                dir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
+//                dir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
+//                dir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
                 state.traceReflectionPhoton(new Ray(state.getPoint(), dir), power);
             } else {
                 float nK = (neta * cos) - (float) Math.sqrt(arg);
-                dir.x = (-wK * state.getRay().dx) + (nK * state.getNormal().x);
-                dir.y = (-wK * state.getRay().dy) + (nK * state.getNormal().y);
-                dir.z = (-wK * state.getRay().dz) + (nK * state.getNormal().z);
+                dir = new Vector3((-wK * state.getRay().dx) + (nK * state.getNormal().x),
+                        (-wK * state.getRay().dy) + (nK * state.getNormal().y)
+                        ,(-wK * state.getRay().dz) + (nK * state.getNormal().z));
+//                dir.x = (-wK * state.getRay().dx) + (nK * state.getNormal().x);
+//                dir.y = (-wK * state.getRay().dy) + (nK * state.getNormal().y);
+//                dir.z = (-wK * state.getRay().dz) + (nK * state.getNormal().z);
                 state.traceRefractionPhoton(new Ray(state.getPoint(), dir), power);
             }
         }

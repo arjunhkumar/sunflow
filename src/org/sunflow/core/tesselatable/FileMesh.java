@@ -199,8 +199,9 @@ public class FileMesh implements Tesselatable {
             }
             // normalize all the vectors
             for (int i3 = 0; i3 < normals.length; i3 += 3) {
-                n.set(normals[i3 + 0], normals[i3 + 1], normals[i3 + 2]);
-                n.normalize();
+                n = n.set(normals[i3 + 0], normals[i3 + 1], normals[i3 + 2]);
+                /** AR07 Modified to make Vector3 class primitive */
+                n = n.normalize();
                 normals[i3 + 0] = n.x;
                 normals[i3 + 1] = n.y;
                 normals[i3 + 2] = n.z;

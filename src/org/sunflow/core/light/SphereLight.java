@@ -123,9 +123,10 @@ public class SphereLight implements LightSource, Shader {
         float sinPhi = (float) Math.sin(phi);
         float sinTheta = (float) Math.sqrt(randY1);
         float cosTheta = (float) Math.sqrt(1 - randY1);
-        dir.x = cosPhi * sinTheta;
-        dir.y = sinPhi * sinTheta;
-        dir.z = cosTheta;
+//        dir.x = cosPhi * sinTheta;
+//        dir.y = sinPhi * sinTheta;
+//        dir.z = cosTheta;
+        dir = new Vector3(cosPhi * sinTheta,sinPhi * sinTheta,cosTheta);
         basis.transform(dir);
         power.set(radiance);
         power.mul((float) (Math.PI * Math.PI * 4 * r2));

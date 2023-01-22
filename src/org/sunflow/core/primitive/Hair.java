@@ -93,7 +93,8 @@ public class Hair implements PrimitiveList, Shader {
             // get next segment
             v0 += 3;
             Vector3 vnext = new Vector3(points[v0 + 3] - points[v0 + 0], points[v0 + 4] - points[v0 + 1], points[v0 + 5] - points[v0 + 2]);
-            vnext.normalize();
+            /** AR07 Modified to make Vector3 class primitive */
+            vnext = vnext.normalize();
             float t = 1.5f - v;
             float s = 1 - t;
             float vx = vnext.x * s + vcurr.x * t;
@@ -186,9 +187,10 @@ public class Hair implements PrimitiveList, Shader {
         state.setBasis(OrthoNormalBasis.makeFromWV(v, new Vector3(-r.dx, -r.dy, -r.dz)));
         state.getBasis().swapVW();
         // normal
-        state.getNormal().set(0, 0, 1);
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(0, 0, 1);
         state.getBasis().transform(state.getNormal());
-        state.getGeoNormal().set(state.getNormal());
+        state.setGeoNormal(state.getNormal());
 
         state.getUV().set(0, (line + state.getV()) / numSegments);
     }
@@ -229,7 +231,8 @@ public class Hair implements PrimitiveList, Shader {
         state.initLightSamples();
         state.initCausticSamples();
         Vector3 v = state.getRay().getDirection();
-        v.negate();
+        /** AR07 Modified to make Vector3 class primitive */
+        v = v.negate();
         Vector3 h = new Vector3();
         Vector3 t = state.getBasis().transform(new Vector3(0, 1, 0));
         Color diff = Color.black();
@@ -241,7 +244,8 @@ public class Hair implements PrimitiveList, Shader {
             // float dotVL = Vector3.dot(v, l);
             diff.madd(sinTL, ls.getDiffuseRadiance());
             Vector3.add(v, l, h);
-            h.normalize();
+            /** AR07 Modified to make Vector3 class primitive */
+            h = h.normalize();
             float dotTH = Vector3.dot(t, h);
             float sinTH = (float) Math.sqrt(1 - dotTH * dotTH);
             float s = (float) Math.pow(sinTH, 10.0f);

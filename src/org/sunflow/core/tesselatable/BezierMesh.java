@@ -116,9 +116,10 @@ public class BezierMesh implements Tesselatable {
                 }
             }
             // surface normal
-            n.x = (dpduy * dpdvz - dpduz * dpdvy);
-            n.y = (dpduz * dpdvx - dpdux * dpdvz);
-            n.z = (dpdux * dpdvy - dpduy * dpdvx);
+            float x = (dpduy * dpdvz - dpduz * dpdvy);
+            float y = (dpduz * dpdvx - dpdux * dpdvz);
+            float z = (dpdux * dpdvy - dpduy * dpdvx);
+            n = new Vector3(x, y, z);
         }
     }
 

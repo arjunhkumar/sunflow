@@ -256,9 +256,10 @@ public class ImageBasedLight implements PrimitiveList, LightSource, Shader {
         theta = u * 2 * Math.PI;
         phi = v * Math.PI;
         double sin_phi = Math.sin(phi);
-        dest.x = (float) (-sin_phi * Math.cos(theta));
-        dest.y = (float) Math.cos(phi);
-        dest.z = (float) (sin_phi * Math.sin(theta));
+        float x = (float) (-sin_phi * Math.cos(theta));
+        float y = (float) Math.cos(phi);
+        float z = (float) (sin_phi * Math.sin(theta));
+        dest = new Vector3(x,y,z);
         return dest;
     }
 

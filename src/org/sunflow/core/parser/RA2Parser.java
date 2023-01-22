@@ -65,17 +65,21 @@ public class RA2Parser implements SceneParser {
             Vector3 up = new Vector3();
             switch (p.getNextInt()) {
                 case 0:
-                    up.set(1, 0, 0);
+                    /** AR07 Modified to make Vector3 class primitive */
+                    up = up.set(1, 0, 0);
                     break;
                 case 1:
-                    up.set(0, 1, 0);
+                    /** AR07 Modified to make Vector3 class primitive */
+                    up = up.set(0, 1, 0);
                     break;
                 case 2:
-                    up.set(0, 0, 1);
+                    /** AR07 Modified to make Vector3 class primitive */
+                    up = up.set(0, 0, 1);
                     break;
                 default:
                     UI.printWarning(Module.USER, "RA2 - Invalid up vector specification - using Z axis");
-                    up.set(0, 0, 1);
+                    /** AR07 Modified to make Vector3 class primitive */
+                    up = up.set(0, 0, 1);
                     break;
             }
             api.parameter("eye", eye);

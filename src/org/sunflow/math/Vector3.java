@@ -6,7 +6,8 @@ public final class Vector3 {
     private static final float[] COS_PHI = new float[256];
     private static final float[] SIN_PHI = new float[256];
 
-    public float x, y, z;
+    /** AR07 Modified to make this class primitive */
+    public final float x, y, z;
 
     static {
         // precompute tables to compress unit vectors
@@ -19,7 +20,11 @@ public final class Vector3 {
         }
     }
 
+    /** AR07 Modified to make this class primitive */
     public Vector3() {
+        this.x = 0f;
+        this.y = 0f;
+        this.z = 0f;
     }
 
     public Vector3(float x, float y, float z) {
@@ -37,9 +42,11 @@ public final class Vector3 {
     public static final Vector3 decode(short n, Vector3 dest) {
         int t = (n & 0xFF00) >>> 8;
         int p = n & 0xFF;
-        dest.x = SIN_THETA[t] * COS_PHI[p];
-        dest.y = SIN_THETA[t] * SIN_PHI[p];
-        dest.z = COS_THETA[t];
+        /** AR07 Modified to make this class primitive */
+//        dest.x = SIN_THETA[t] * COS_PHI[p];
+//        dest.y = SIN_THETA[t] * SIN_PHI[p];
+//        dest.z = COS_THETA[t];
+        dest = new Vector3(SIN_THETA[t] * COS_PHI[p],SIN_THETA[t] * SIN_PHI[p],COS_THETA[t]);
         return dest;
     }
 
@@ -79,84 +86,103 @@ public final class Vector3 {
     }
 
     public final Vector3 negate() {
-        x = -x;
-        y = -y;
-        z = -z;
-        return this;
+        /** AR07 Modified to make this class primitive */
+//        x = -x;
+//        y = -y;
+//        z = -z;
+        return new Vector3(-x,-y,-z);
     }
 
     public final Vector3 negate(Vector3 dest) {
-        dest.x = -x;
-        dest.y = -y;
-        dest.z = -z;
+        /** AR07 Modified to make this class primitive */
+//        dest.x = -x;
+//        dest.y = -y;
+//        dest.z = -z;
+        dest = new Vector3(-x,-y,-z);
         return dest;
     }
 
     public final Vector3 mul(float s) {
-        x *= s;
-        y *= s;
-        z *= s;
-        return this;
+        /** AR07 Modified to make this class primitive */
+//        x *= s;
+//        y *= s;
+//        z *= s;
+        return new Vector3(x*s,y*s,z*s);
     }
 
     public final Vector3 mul(float s, Vector3 dest) {
-        dest.x = x * s;
-        dest.y = y * s;
-        dest.z = z * s;
+        /** AR07 Modified to make this class primitive */
+//        dest.x = x * s;
+//        dest.y = y * s;
+//        dest.z = z * s;
+        dest = new Vector3(x*s,y*s,z*s);
         return dest;
     }
 
     public final Vector3 div(float d) {
-        x /= d;
-        y /= d;
-        z /= d;
-        return this;
+        /** AR07 Modified to make this class primitive */
+//        x /= d;
+//        y /= d;
+//        z /= d;
+//        return this;
+        return new Vector3(x/d,y/d,z/d);
     }
 
     public final Vector3 div(float d, Vector3 dest) {
-        dest.x = x / d;
-        dest.y = y / d;
-        dest.z = z / d;
+        /** AR07 Modified to make this class primitive */
+//        dest.x = x / d;
+//        dest.y = y / d;
+//        dest.z = z / d;
+        dest = new Vector3(x/d,y/d,z/d);
         return dest;
     }
 
-    public final float normalizeLength() {
-        float n = (float) Math.sqrt(x * x + y * y + z * z);
-        float in = 1.0f / n;
-        x *= in;
-        y *= in;
-        z *= in;
-        return n;
-    }
+    /** AR07 Modified to make this class primitive */
+//    public final float normalizeLength() {
+//        float n = (float) Math.sqrt(x * x + y * y + z * z);
+//        float in = 1.0f / n;
+//        /** AR07 Modified to make this class primitive */
+//        x *= in;
+//        y *= in;
+//        z *= in;
+//        return n;
+//    }
 
     public final Vector3 normalize() {
+        /** AR07 Modified to make this class primitive */
         float in = 1.0f / (float) Math.sqrt((x * x) + (y * y) + (z * z));
-        x *= in;
-        y *= in;
-        z *= in;
-        return this;
+//        x *= in;
+//        y *= in;
+//        z *= in;
+        return new Vector3(x*in,y*in,z*in);
+//        return this;
     }
 
     public final Vector3 normalize(Vector3 dest) {
+        /** AR07 Modified to make this class primitive */
         float in = 1.0f / (float) Math.sqrt((x * x) + (y * y) + (z * z));
-        dest.x = x * in;
-        dest.y = y * in;
-        dest.z = z * in;
+//        dest.x = x * in;
+//        dest.y = y * in;
+//        dest.z = z * in;
+        dest = new Vector3(x * in,y * in,z * in);
         return dest;
     }
 
     public final Vector3 set(float x, float y, float z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        return this;
+        /** AR07 Modified to make this class primitive */
+//        this.x = x;
+//        this.y = y;
+//        this.z = z;
+        return new Vector3(x,y,z);
     }
 
     public final Vector3 set(Vector3 v) {
-        x = v.x;
-        y = v.y;
-        z = v.z;
-        return this;
+        /** AR07 Modified to make this class primitive */
+//        x = v.x;
+//        y = v.y;
+//        z = v.z;
+//        return this;
+        return new Vector3(v.x,v.y,v.z);
     }
 
     public final float dot(float vx, float vy, float vz) {
@@ -168,23 +194,29 @@ public final class Vector3 {
     }
 
     public static final Vector3 cross(Vector3 v1, Vector3 v2, Vector3 dest) {
-        dest.x = (v1.y * v2.z) - (v1.z * v2.y);
-        dest.y = (v1.z * v2.x) - (v1.x * v2.z);
-        dest.z = (v1.x * v2.y) - (v1.y * v2.x);
+        /** AR07 Modified to make this class primitive */
+        float x = (v1.y * v2.z) - (v1.z * v2.y);
+        float y = (v1.z * v2.x) - (v1.x * v2.z);
+        float z = (v1.x * v2.y) - (v1.y * v2.x);
+        dest = new Vector3(x,y,z);
         return dest;
     }
 
     public static final Vector3 add(Vector3 v1, Vector3 v2, Vector3 dest) {
-        dest.x = v1.x + v2.x;
-        dest.y = v1.y + v2.y;
-        dest.z = v1.z + v2.z;
+        /** AR07 Modified to make this class primitive */
+        float x = v1.x + v2.x;
+        float y = v1.y + v2.y;
+        float z = v1.z + v2.z;
+        dest = new Vector3(x,y,z);
         return dest;
     }
 
     public static final Vector3 sub(Vector3 v1, Vector3 v2, Vector3 dest) {
-        dest.x = v1.x - v2.x;
-        dest.y = v1.y - v2.y;
-        dest.z = v1.z - v2.z;
+        /** AR07 Modified to make this class primitive */
+        float x = v1.x - v2.x;
+        float y = v1.y - v2.y;
+        float z = v1.z - v2.z;
+        dest = new Vector3(x,y,z);
         return dest;
     }
 

@@ -55,7 +55,8 @@ public class SphereFlake implements PrimitiveList {
     public boolean update(ParameterList pl, SunflowAPI api) {
         level = MathUtils.clamp(pl.getInt("level", level), 0, 20);
         axis = pl.getVector("axis", axis);
-        axis.normalize();
+        /** AR07 Modified to make Vector3 class primitive */
+        axis = axis.normalize();
         baseRadius = Math.abs(pl.getFloat("radius", baseRadius));
         return true;
     }
@@ -86,8 +87,9 @@ public class SphereFlake implements PrimitiveList {
         float cy = state.getV();
         float cz = state.getW();
 
-        state.getNormal().set(localPoint.x - cx, localPoint.y - cy, localPoint.z - cz);
-        state.getNormal().normalize();
+        state.setNormal(localPoint.x - cx, localPoint.y - cy, localPoint.z - cz);
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(state.getNormal().normalize());
 
         float phi = (float) Math.atan2(state.getNormal().y, state.getNormal().x);
         if (phi < 0)
@@ -95,18 +97,19 @@ public class SphereFlake implements PrimitiveList {
         float theta = (float) Math.acos(state.getNormal().z);
         state.getUV().y = theta / (float) Math.PI;
         state.getUV().x = phi / (float) (2 * Math.PI);
-        Vector3 v = new Vector3();
-        v.x = -2 * (float) Math.PI * state.getNormal().y;
-        v.y = 2 * (float) Math.PI * state.getNormal().x;
-        v.z = 0;
+        /** AR07 Modified to make Vector3 class primitive */
+        Vector3 v = new Vector3( -2 * (float) Math.PI * state.getNormal().y,2 * (float) Math.PI * state.getNormal().x,0);
+//        v.x = -2 * (float) Math.PI * state.getNormal().y;
+//        v.y = 2 * (float) Math.PI * state.getNormal().x;
+//        v.z = 0;
         state.setShader(parent.getShader(0));
         state.setModifier(parent.getModifier(0));
         // into world space
         Vector3 worldNormal = state.transformNormalObjectToWorld(state.getNormal());
         v = state.transformVectorObjectToWorld(v);
-        state.getNormal().set(worldNormal);
+        state.setNormal(worldNormal);
         state.getNormal().normalize();
-        state.getGeoNormal().set(state.getNormal());
+        state.setGeoNormal(state.getNormal());
         // compute basis in world space
         state.setBasis(OrthoNormalBasis.makeFromWV(state.getNormal(), v));
 

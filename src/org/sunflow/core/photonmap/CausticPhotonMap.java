@@ -235,7 +235,9 @@ public final class CausticPhotonMap implements CausticPhotonMapInterface {
                 float pcos = Vector3.dot(pvec, state.getNormal());
                 if ((pcos < maxNDist) && (pcos > -maxNDist)) {
                     LightSample sample = new LightSample();
-                    sample.setShadowRay(new Ray(state.getPoint(), pdir.negate()));
+                    /** AR07 Modified to make Vector3 class primitive */
+                    pdir = pdir.negate();
+                    sample.setShadowRay(new Ray(state.getPoint(), pdir));
                     sample.setRadiance(new Color().setRGBE(np.index[i].power).mul(invArea / cos), Color.BLACK);
                     sample.getDiffuseRadiance().mul((1.0f - (float) Math.sqrt(np.dist2[i] * f2r2)) * fInv);
                     state.addSample(sample);

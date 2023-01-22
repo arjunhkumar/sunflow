@@ -110,17 +110,20 @@ public class AnisotropicWardShader implements Shader {
                     float sinTheta = (float) Math.sin(theta);
                     float cosTheta = (float) Math.cos(theta);
 
-                    Vector3 h = new Vector3();
-                    h.x = sinTheta * cosPhi;
-                    h.y = sinTheta * sinPhi;
-                    h.z = cosTheta;
+                    /** AR07 Modified to make Vector3 class primitive */
+                    Vector3 h = new Vector3(sinTheta * cosPhi,sinTheta * sinPhi,cosTheta);
+//                    h.x = sinTheta * cosPhi;
+//                    h.y = sinTheta * sinPhi;
+//                    h.z = cosTheta;
                     onb.transform(h);
 
-                    Vector3 o = new Vector3();
+                    
                     float ih = Vector3.dot(h, in);
-                    o.x = 2 * ih * h.x - in.x;
-                    o.y = 2 * ih * h.y - in.y;
-                    o.z = 2 * ih * h.z - in.z;
+                    /** AR07 Modified to make Vector3 class primitive */
+                    Vector3 o = new Vector3(2 * ih * h.x - in.x,2 * ih * h.y - in.y,2 * ih * h.z - in.z);
+//                    o.x = 2 * ih * h.x - in.x;
+//                    o.y = 2 * ih * h.y - in.y;
+//                    o.z = 2 * ih * h.z - in.z;
 
                     float no = onb.untransformZ(o);
                     float ni = onb.untransformZ(in);
@@ -192,17 +195,20 @@ public class AnisotropicWardShader implements Shader {
             float sinTheta = (float) Math.sin(theta);
             float cosTheta = (float) Math.cos(theta);
 
-            Vector3 h = new Vector3();
-            h.x = sinTheta * cosPhi;
-            h.y = sinTheta * sinPhi;
-            h.z = cosTheta;
+            /** AR07 Modified to make Vector3 class primitive */
+            Vector3 h = new Vector3(sinTheta * cosPhi,sinTheta * sinPhi,cosTheta);
+//            h.x = sinTheta * cosPhi;
+//            h.y = sinTheta * sinPhi;
+//            h.z = cosTheta;
             basis.transform(h);
 
-            Vector3 o = new Vector3();
+            /** AR07 Modified to make Vector3 class primitive */
+//            Vector3 o = new Vector3();
             float ih = Vector3.dot(h, in);
-            o.x = 2 * ih * h.x - in.x;
-            o.y = 2 * ih * h.y - in.y;
-            o.z = 2 * ih * h.z - in.z;
+            Vector3 o = new Vector3(2 * ih * h.x - in.x,2 * ih * h.y - in.y,2 * ih * h.z - in.z);
+//            o.x = 2 * ih * h.x - in.x;
+//            o.y = 2 * ih * h.y - in.y;
+//            o.z = 2 * ih * h.z - in.z;
 
             Ray r = new Ray(state.getPoint(), o);
             state.traceReflectionPhoton(r, power);

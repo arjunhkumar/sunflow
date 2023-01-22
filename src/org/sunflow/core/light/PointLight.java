@@ -49,9 +49,10 @@ public class PointLight implements LightSource {
         p.set(lightPoint);
         float phi = (float) (2 * Math.PI * randX1);
         float s = (float) Math.sqrt(randY1 * (1.0f - randY1));
-        dir.x = (float) Math.cos(phi) * s;
-        dir.y = (float) Math.sin(phi) * s;
-        dir.z = (float) (1 - 2 * randY1);
+        float x = (float) Math.cos(phi) * s;
+        float y = (float) Math.sin(phi) * s;
+        float z = (float) (1 - 2 * randY1);
+        dir = new Vector3(x, y, z);
         power.set(this.power);
     }
 

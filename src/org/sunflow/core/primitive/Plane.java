@@ -94,8 +94,8 @@ public class Plane implements PrimitiveList {
         state.getRay().getPoint(state.getPoint());
         Instance parent = state.getInstance();
         Vector3 worldNormal = state.transformNormalObjectToWorld(normal);
-        state.getNormal().set(worldNormal);
-        state.getGeoNormal().set(worldNormal);
+        state.setNormal(worldNormal);
+        state.setGeoNormal(worldNormal);
         state.setShader(parent.getShader(0));
         state.setModifier(parent.getModifier(0));
         Point3 p = state.transformWorldToObject(state.getPoint());

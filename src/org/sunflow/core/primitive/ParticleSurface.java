@@ -72,17 +72,20 @@ public class ParticleSurface implements PrimitiveList {
         localPoint.x -= particles[3 * state.getPrimitiveID() + 0];
         localPoint.y -= particles[3 * state.getPrimitiveID() + 1];
         localPoint.z -= particles[3 * state.getPrimitiveID() + 2];
-
-        state.getNormal().set(localPoint.x, localPoint.y, localPoint.z);
-        state.getNormal().normalize();
+        
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(localPoint.x, localPoint.y, localPoint.z);
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(state.getNormal().normalize());
 
         state.setShader(state.getInstance().getShader(0));
         state.setModifier(state.getInstance().getModifier(0));
         // into object space
         Vector3 worldNormal = state.transformNormalObjectToWorld(state.getNormal());
-        state.getNormal().set(worldNormal);
+        state.setNormal(worldNormal);
+        /** AR07 Modified to make Vector3 class primitive */
         state.getNormal().normalize();
-        state.getGeoNormal().set(state.getNormal());
+        state.setGeoNormal(state.getNormal());
         state.setBasis(OrthoNormalBasis.makeFromW(state.getNormal()));
     }
 

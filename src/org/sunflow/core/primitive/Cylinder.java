@@ -39,9 +39,10 @@ public class Cylinder implements PrimitiveList {
         state.getRay().getPoint(state.getPoint());
         Instance parent = state.getInstance();
         Point3 localPoint = state.transformWorldToObject(state.getPoint());
-        state.getNormal().set(localPoint.x, localPoint.y, 0);
-        state.getNormal().normalize();
-
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(localPoint.x, localPoint.y, 0);
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(state.getNormal().normalize());
         float phi = (float) Math.atan2(state.getNormal().y, state.getNormal().x);
         if (phi < 0)
             phi += 2 * Math.PI;
@@ -52,9 +53,9 @@ public class Cylinder implements PrimitiveList {
         // into world space
         Vector3 worldNormal = state.transformNormalObjectToWorld(state.getNormal());
         Vector3 v = state.transformVectorObjectToWorld(new Vector3(0, 0, 1));
-        state.getNormal().set(worldNormal);
+        state.setNormal(worldNormal);
         state.getNormal().normalize();
-        state.getGeoNormal().set(state.getNormal());
+        state.setGeoNormal(state.getNormal());
         // compute basis in world space
         state.setBasis(OrthoNormalBasis.makeFromWV(state.getNormal(), v));
     }

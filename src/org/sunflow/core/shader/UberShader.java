@@ -68,10 +68,12 @@ public class UberShader implements Shader {
         if (glossyness == 0) {
             float cos = state.getCosND();
             float dn = 2 * cos;
-            Vector3 refDir = new Vector3();
-            refDir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
-            refDir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
-            refDir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
+            Vector3 refDir = new Vector3((dn * state.getNormal().x) + state.getRay().getDirection().x,
+                    (dn * state.getNormal().y) + state.getRay().getDirection().y,
+                    (dn * state.getNormal().z) + state.getRay().getDirection().z);
+//            refDir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
+//            refDir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
+//            refDir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
             Ray refRay = new Ray(state.getPoint(), refDir);
             // compute Fresnel term
             cos = 1 - cos;
@@ -114,18 +116,22 @@ public class UberShader implements Shader {
                 power.mul(diffuse).mul(1.0f / d);
                 // photon is reflected
                 float dn = 2 * cos;
-                Vector3 dir = new Vector3();
-                dir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
-                dir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
-                dir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
+                Vector3 dir = new Vector3((dn * state.getNormal().x) + state.getRay().getDirection().x,
+                        (dn * state.getNormal().y) + state.getRay().getDirection().y,
+                        (dn * state.getNormal().z) + state.getRay().getDirection().z);
+//                dir.x = (dn * state.getNormal().x) + state.getRay().getDirection().x;
+//                dir.y = (dn * state.getNormal().y) + state.getRay().getDirection().y;
+//                dir.z = (dn * state.getNormal().z) + state.getRay().getDirection().z;
                 state.traceReflectionPhoton(new Ray(state.getPoint(), dir), power);
             } else {
                 float dn = 2.0f * state.getCosND();
                 // reflected direction
-                Vector3 refDir = new Vector3();
-                refDir.x = (dn * state.getNormal().x) + state.getRay().dx;
-                refDir.y = (dn * state.getNormal().y) + state.getRay().dy;
-                refDir.z = (dn * state.getNormal().z) + state.getRay().dz;
+                Vector3 refDir = new Vector3((dn * state.getNormal().x) + state.getRay().dx,
+                        (dn * state.getNormal().y) + state.getRay().dy,
+                        (dn * state.getNormal().z) + state.getRay().dz);
+//                refDir.x = (dn * state.getNormal().x) + state.getRay().dx;
+//                refDir.y = (dn * state.getNormal().y) + state.getRay().dy;
+//                refDir.z = (dn * state.getNormal().z) + state.getRay().dz;
                 power.mul(spec).mul(1.0f / r);
                 OrthoNormalBasis onb = state.getBasis();
                 double u = 2 * Math.PI * (rnd - r) / r;

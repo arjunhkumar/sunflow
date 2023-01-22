@@ -226,11 +226,11 @@ public final class Matrix4 {
      * @return a new Vector3 object equal to <code>this*v</code>
      */
     public final Vector3 transformV(Vector3 v) {
-        Vector3 rv = new Vector3();
-        rv.x = m00 * v.x + m01 * v.y + m02 * v.z;
-        rv.y = m10 * v.x + m11 * v.y + m12 * v.z;
-        rv.z = m20 * v.x + m21 * v.y + m22 * v.z;
-        return rv;
+//        Vector3 rv = new Vector3();
+        float x = m00 * v.x + m01 * v.y + m02 * v.z;
+        float y = m10 * v.x + m11 * v.y + m12 * v.z;
+        float z = m20 * v.x + m21 * v.y + m22 * v.z;
+        return new Vector3(x,y,z);
     }
 
     /**
@@ -241,11 +241,11 @@ public final class Matrix4 {
      * @return a new Vector3 object equal to <code>(this^T)*v</code>
      */
     public final Vector3 transformTransposeV(Vector3 v) {
-        Vector3 rv = new Vector3();
-        rv.x = m00 * v.x + m10 * v.y + m20 * v.z;
-        rv.y = m01 * v.x + m11 * v.y + m21 * v.z;
-        rv.z = m02 * v.x + m12 * v.y + m22 * v.z;
-        return rv;
+//        Vector3 rv = new Vector3();
+        float x = m00 * v.x + m10 * v.y + m20 * v.z;
+        float y = m01 * v.x + m11 * v.y + m21 * v.z;
+        float z = m02 * v.x + m12 * v.y + m22 * v.z;
+        return new Vector3(x,y,z);
     }
 
     /**

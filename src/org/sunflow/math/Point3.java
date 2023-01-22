@@ -79,9 +79,10 @@ public final class Point3 {
     }
 
     public static final Vector3 sub(Point3 p1, Point3 p2, Vector3 dest) {
-        dest.x = p1.x - p2.x;
-        dest.y = p1.y - p2.y;
-        dest.z = p1.z - p2.z;
+        float x = p1.x - p2.x;
+        float y = p1.y - p2.y;
+        float z = p1.z - p2.z;
+        dest = new Vector3(x, y, z);
         return dest;
     }
 
@@ -119,9 +120,10 @@ public final class Point3 {
         float edge2x = p2.x - p0.x;
         float edge2y = p2.y - p0.y;
         float edge2z = p2.z - p0.z;
-        dest.x = edge1y * edge2z - edge1z * edge2y;
-        dest.y = edge1z * edge2x - edge1x * edge2z;
-        dest.z = edge1x * edge2y - edge1y * edge2x;
+        float x = edge1y * edge2z - edge1z * edge2y;
+        float y = edge1z * edge2x - edge1x * edge2z;
+        float z = edge1x * edge2y - edge1y * edge2x;
+        dest = new Vector3(x, y, z);
         return dest;
     }
 

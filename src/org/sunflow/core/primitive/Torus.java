@@ -72,8 +72,9 @@ public class Torus implements PrimitiveList {
         Point3 p = state.transformWorldToObject(state.getPoint());
         // compute local normal
         float deriv = p.x * p.x + p.y * p.y + p.z * p.z - ri2 - ro2;
-        state.getNormal().set(p.x * deriv, p.y * deriv, p.z * deriv + 2 * ro2 * p.z);
-        state.getNormal().normalize();
+        state.setNormal(p.x * deriv, p.y * deriv, p.z * deriv + 2 * ro2 * p.z);
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(state.getNormal().normalize());
 
         double phi = Math.asin(MathUtils.clamp(p.z / ri, -1, 1));
         double theta = Math.atan2(p.y, p.x);
@@ -85,9 +86,10 @@ public class Torus implements PrimitiveList {
         state.setModifier(parent.getModifier(0));
         // into world space
         Vector3 worldNormal = state.transformNormalObjectToWorld(state.getNormal());
-        state.getNormal().set(worldNormal);
-        state.getNormal().normalize();
-        state.getGeoNormal().set(state.getNormal());
+        state.setNormal(worldNormal);
+        /** AR07 Modified to make Vector3 class primitive */
+        state.setNormal(state.getNormal().normalize());
+        state.setGeoNormal(state.getNormal());
         // make basis in world space
         state.setBasis(OrthoNormalBasis.makeFromW(state.getNormal()));
 

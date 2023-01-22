@@ -38,8 +38,9 @@ public class DiffuseShader implements Shader {
         Color diffuse;
         // make sure we are on the right side of the material
         if (Vector3.dot(state.getNormal(), state.getRay().getDirection()) > 0.0) {
-            state.getNormal().negate();
-            state.getGeoNormal().negate();
+            /** AR07 Modified to make Vector3 class primitive */
+            state.setNormal(state.getNormal().negate());
+            state.setGeoNormal(state.getGeoNormal().negate());
         }
         diffuse = getDiffuse(state);
         state.storePhoton(state.getRay().getDirection(), power, diffuse);

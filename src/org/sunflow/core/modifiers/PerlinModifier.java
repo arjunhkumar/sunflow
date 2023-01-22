@@ -31,14 +31,17 @@ public class PerlinModifier implements Modifier {
         double fx = f(p.x + .0001, p.y, p.z);
         double fy = f(p.x, p.y + .0001, p.z);
         double fz = f(p.x, p.y, p.z + .0001);
-
-        normal.x -= scale * (fx - f0) / .0001;
-        normal.y -= scale * (fy - f0) / .0001;
-        normal.z -= scale * (fz - f0) / .0001;
-        normal.normalize();
-
-        state.getNormal().set(state.transformNormalObjectToWorld(normal));
-        state.getNormal().normalize();
+        /** AR07 Modified to make Vector3 class primitive */
+        float x = (float) (normal.x - (scale * (fx - f0) / .0001));
+        float y = (float) (normal.y - (scale * (fy - f0) / .0001));
+        float z = (float) (normal.z - (scale * (fz - f0) / .0001));
+//        normal.y -= scale * (fy - f0) / .0001;
+//        normal.z -= scale * (fz - f0) / .0001;
+        /** AR07 Modified to make Vector3 class primitive */
+        normal = new Vector3(x,y,z);
+        normal = normal.normalize();
+        state.setNormal(state.transformNormalObjectToWorld(normal));
+        state.setNormal(state.getNormal().normalize());
         state.setBasis(OrthoNormalBasis.makeFromW(state.getNormal()));
     }
 

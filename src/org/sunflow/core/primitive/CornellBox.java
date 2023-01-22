@@ -143,28 +143,28 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
         int n = state.getPrimitiveID();
         switch (n) {
             case 0:
-                state.getNormal().set(new Vector3(1, 0, 0));
+                state.setNormal(new Vector3(1, 0, 0));
                 break;
             case 1:
-                state.getNormal().set(new Vector3(-1, 0, 0));
+                state.setNormal(new Vector3(-1, 0, 0));
                 break;
             case 2:
-                state.getNormal().set(new Vector3(0, 1, 0));
+                state.setNormal(new Vector3(0, 1, 0));
                 break;
             case 3:
-                state.getNormal().set(new Vector3(0, -1, 0));
+                state.setNormal(new Vector3(0, -1, 0));
                 break;
             case 4:
-                state.getNormal().set(new Vector3(0, 0, 1));
+                state.setNormal(new Vector3(0, 0, 1));
                 break;
             case 5:
-                state.getNormal().set(new Vector3(0, 0, -1));
+                state.setNormal(new Vector3(0, 0, -1));
                 break;
             default:
-                state.getNormal().set(new Vector3(0, 0, 0));
+                state.setNormal(new Vector3(0, 0, 0));
                 break;
         }
-        state.getGeoNormal().set(state.getNormal());
+        state.setGeoNormal(state.getNormal());
         state.setBasis(OrthoNormalBasis.makeFromW(state.getNormal()));
         state.setShader(this);
     }
@@ -323,8 +323,9 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
         }
         // make sure we are on the right side of the material
         if (Vector3.dot(state.getNormal(), state.getRay().getDirection()) > 0) {
-            state.getNormal().negate();
-            state.getGeoNormal().negate();
+            /** AR07 Modified to make Vector3 class primitive */
+            state.setNormal(state.getNormal().negate());
+            state.setGeoNormal(state.getGeoNormal().negate());
         }
         state.storePhoton(state.getRay().getDirection(), power, kd);
         double avg = kd.getAverage();
@@ -397,7 +398,8 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
 
         double u = 2 * Math.PI * randX1;
         double s = Math.sqrt(randY1);
-        dir.set((float) (Math.cos(u) * s), (float) (Math.sin(u) * s), (float) -Math.sqrt(1.0f - randY1));
+        /** AR07 Modified to make Vector3 class primitive */
+        dir = dir.set((float) (Math.cos(u) * s), (float) (Math.sin(u) * s), (float) -Math.sqrt(1.0f - randY1));
         Color.mul((float) Math.PI * area, radiance, power);
     }
 

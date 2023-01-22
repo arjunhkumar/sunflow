@@ -78,10 +78,11 @@ public class IrradianceCacheGIEngine implements GIEngine {
             float sinPhi = (float) Math.sin(phi);
             float sinTheta = (float) Math.sqrt(xj);
             float cosTheta = (float) Math.sqrt(1.0f - xj);
-            Vector3 w = new Vector3();
-            w.x = cosPhi * sinTheta;
-            w.y = sinPhi * sinTheta;
-            w.z = cosTheta;
+            /** AR07 Modified to make Vector3 class primitive */
+            Vector3 w = new Vector3(cosPhi * sinTheta,sinPhi * sinTheta,cosTheta);
+//            w.x = cosPhi * sinTheta;
+//            w.y = sinPhi * sinTheta;
+//            w.z = cosTheta;
             OrthoNormalBasis onb = state.getBasis();
             onb.transform(w);
             Ray r = new Ray(state.getPoint(), w);
@@ -106,9 +107,11 @@ public class IrradianceCacheGIEngine implements GIEngine {
                 float sinPhi = (float) Math.sin(phi);
                 float sinTheta = (float) Math.sqrt(xj);
                 float cosTheta = (float) Math.sqrt(1.0f - xj);
-                w.x = cosPhi * sinTheta;
-                w.y = sinPhi * sinTheta;
-                w.z = cosTheta;
+                /** AR07 Modified to make Vector3 class primitive */
+                w = new Vector3(cosPhi * sinTheta,sinPhi * sinTheta,cosTheta);
+//                w.x = cosPhi * sinTheta;
+//                w.y = sinPhi * sinTheta;
+//                w.z = cosTheta;
                 onb.transform(w);
                 Ray r = new Ray(state.getPoint(), w);
                 ShadingState temp = state.traceFinalGather(r, i);

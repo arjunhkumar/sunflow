@@ -38,9 +38,10 @@ public class PathTracingGIEngine implements GIEngine {
             float sinPhi = (float) Math.sin(phi);
             float sinTheta = (float) Math.sqrt(xj);
             float cosTheta = (float) Math.sqrt(1.0f - xj);
-            w.x = cosPhi * sinTheta;
-            w.y = sinPhi * sinTheta;
-            w.z = cosTheta;
+//            w.x = cosPhi * sinTheta;
+//            w.y = sinPhi * sinTheta;
+//            w.z = cosTheta;
+            w = new Vector3(cosPhi * sinTheta,sinPhi * sinTheta,cosTheta);
             onb.transform(w);
             ShadingState temp = state.traceFinalGather(new Ray(state.getPoint(), w), i);
             if (temp != null) {

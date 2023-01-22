@@ -45,7 +45,8 @@ public class TriangleMeshLight extends TriangleMesh implements Shader, LightSour
                 Point3 v2p = getPoint(c);
                 ngs[i] = Point3.normal(v0p, v1p, v2p);
                 areas[i] = 0.5f * ngs[i].length();
-                ngs[i].normalize();
+                /** AR07 Modified to make Vector3 class primitive */
+                ngs[i] = ngs[i].normalize();
                 totalArea += areas[i];
             }
         } else
@@ -166,35 +167,40 @@ public class TriangleMeshLight extends TriangleMesh implements Shader, LightSour
             // if all three vertices are below the hemisphere, stop
             if (Vector3.dot(p0, n) <= 0 && Vector3.dot(p1, n) <= 0 && Vector3.dot(p2, n) <= 0)
                 continue;
-            p0.normalize();
-            p1.normalize();
-            p2.normalize();
+            /** AR07 Modified to make Vector3 class primitive */
+            p0 = p0.normalize();
+            p1 = p1.normalize();
+            p2 = p2.normalize();
             float dot = Vector3.dot(p2, p0);
-            Vector3 h = new Vector3();
-            h.x = p2.x - dot * p0.x;
-            h.y = p2.y - dot * p0.y;
-            h.z = p2.z - dot * p0.z;
+            Vector3 h = new Vector3(p2.x - dot * p0.x,p2.y - dot * p0.y,p2.z - dot * p0.z);
+//            h.x = p2.x - dot * p0.x;
+//            h.y = p2.y - dot * p0.y;
+//            h.z = p2.z - dot * p0.z;
             float hlen = h.length();
             if (hlen > 1e-6f)
-                h.div(hlen);
+                /** AR07 Modified to make Vector3 class primitive */
+                h = h.div(hlen);
             else
                 continue;
             Vector3 n0 = Vector3.cross(p0, p1, new Vector3());
             float len0 = n0.length();
             if (len0 > 1e-6f)
-                n0.div(len0);
+                /** AR07 Modified to make Vector3 class primitive */
+                n0 = n0.div(len0);
             else
                 continue;
             Vector3 n1 = Vector3.cross(p1, p2, new Vector3());
             float len1 = n1.length();
             if (len1 > 1e-6f)
-                n1.div(len1);
+                /** AR07 Modified to make Vector3 class primitive */
+                n1 = n1.div(len1);
             else
                 continue;
             Vector3 n2 = Vector3.cross(p2, p0, new Vector3());
             float len2 = n2.length();
             if (len2 > 1e-6f)
-                n2.div(len2);
+                /** AR07 Modified to make Vector3 class primitive */
+                n2 = n2.div(len2);
             else
                 continue;
 
@@ -241,16 +247,19 @@ public class TriangleMeshLight extends TriangleMesh implements Shader, LightSour
                 float z1 = 1.0f - z * z;
                 if (z1 < 0.0f)
                     z1 = 0.0f;
-                Vector3 nd = new Vector3();
-                nd.x = ncx - dot * p1.x;
-                nd.y = ncy - dot * p1.y;
-                nd.z = ncz - dot * p1.z;
-                nd.normalize();
+                /** AR07 Modified to make Vector3 class primitive */
+                Vector3 nd = new Vector3(ncx - dot * p1.x,ncy - dot * p1.y,ncz - dot * p1.z);
+//                nd.x = ncx - dot * p1.x;
+//                nd.y = ncy - dot * p1.y;
+//                nd.z = ncz - dot * p1.z;
+                /** AR07 Modified to make Vector3 class primitive */
+                nd = nd.normalize();
                 float sqrtz1 = (float) Math.sqrt(z1);
-                Vector3 result = new Vector3();
-                result.x = z * p1.x + sqrtz1 * nd.x;
-                result.y = z * p1.y + sqrtz1 * nd.y;
-                result.z = z * p1.z + sqrtz1 * nd.z;
+                /** AR07 Modified to make Vector3 class primitive */
+                Vector3 result = new Vector3(z * p1.x + sqrtz1 * nd.x,z * p1.y + sqrtz1 * nd.y,z * p1.z + sqrtz1 * nd.z);
+//                result.x = z * p1.x + sqrtz1 * nd.x;
+//                result.y = z * p1.y + sqrtz1 * nd.y;
+//                result.z = z * p1.z + sqrtz1 * nd.z;
 
                 // make sure the sample is in the right hemisphere - facing in
                 // the right direction

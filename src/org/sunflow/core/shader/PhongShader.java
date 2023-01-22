@@ -67,10 +67,12 @@ public class PhongShader implements Shader {
             // photon is scattered specularly
             float dn = 2.0f * state.getCosND();
             // reflected direction
-            Vector3 refDir = new Vector3();
-            refDir.x = (dn * state.getNormal().x) + state.getRay().dx;
-            refDir.y = (dn * state.getNormal().y) + state.getRay().dy;
-            refDir.z = (dn * state.getNormal().z) + state.getRay().dz;
+            Vector3 refDir = new Vector3((dn * state.getNormal().x) + state.getRay().dx,
+                    (dn * state.getNormal().y) + state.getRay().dy
+                    ,(dn * state.getNormal().z) + state.getRay().dz);
+//            refDir.x = (dn * state.getNormal().x) + state.getRay().dx;
+//            refDir.y = (dn * state.getNormal().y) + state.getRay().dy;
+//            refDir.z = (dn * state.getNormal().z) + state.getRay().dz;
             power.mul(spec).mul(1.0f / avgS);
             OrthoNormalBasis onb = state.getBasis();
             double u = 2 * Math.PI * (rnd - avgD) / avgS;

@@ -124,9 +124,11 @@ public class SunSkyLight implements LightSource, PrimitiveList, Shader {
 
     private void initSunSky() {
         // perform all the required initialization of constants
-        sunDirWorld.normalize();
+        /** AR07 Modified to make Vector3 class primitive */
+        sunDirWorld = sunDirWorld.normalize();
         sunDir = basis.untransform(sunDirWorld, new Vector3());
-        sunDir.normalize();
+        /** AR07 Modified to make Vector3 class primitive */
+        sunDir = sunDir.normalize();
         sunTheta = (float) Math.acos(MathUtils.clamp(sunDir.z, -1, 1));
         if (sunDir.z > 0) {
             sunSpectralRadiance = computeAttenuatedSunlight(sunTheta, turbidity);
@@ -210,8 +212,10 @@ public class SunSkyLight implements LightSource, PrimitiveList, Shader {
         if (dir.z < 0 && !groundExtendSky)
             return groundColor;
         if (dir.z < 0.001f)
-            dir.z = 0.001f;
-        dir.normalize();
+            /** AR07 Modified to make Vector3 class primitive */
+            dir = new Vector3(dir.x, dir.y, 0.001f); //dir.z = 0.001f;
+        /** AR07 Modified to make Vector3 class primitive */
+        dir = dir.normalize();
         double theta = Math.acos(MathUtils.clamp(dir.z, -1, 1));
         double gamma = Math.acos(MathUtils.clamp(Vector3.dot(dir, sunDir), -1, 1));
         double x = perezFunction(perezx, theta, gamma, zenithx);
@@ -320,14 +324,16 @@ public class SunSkyLight implements LightSource, PrimitiveList, Shader {
     }
 
     private Vector3 getDirection(float u, float v) {
-        Vector3 dest = new Vector3();
+//        Vector3 dest = new Vector3();
         double phi = 0, theta = 0;
         theta = u * 2 * Math.PI;
         phi = v * Math.PI;
         double sin_phi = Math.sin(phi);
-        dest.x = (float) (-sin_phi * Math.cos(theta));
-        dest.y = (float) Math.cos(phi);
-        dest.z = (float) (sin_phi * Math.sin(theta));
+        /** AR07 Modified to make Vector3 class primitive */
+        Vector3 dest = new Vector3((float) (-sin_phi * Math.cos(theta)),(float) Math.cos(phi),(float) (sin_phi * Math.sin(theta)));
+//        dest.x = (float) (-sin_phi * Math.cos(theta));
+//        dest.y = (float) Math.cos(phi);
+//        dest.z = (float) (sin_phi * Math.sin(theta));
         return dest;
     }
 
