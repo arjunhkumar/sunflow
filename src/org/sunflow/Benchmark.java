@@ -98,6 +98,35 @@ public class Benchmark implements BenchmarkTest, UserInterface, Display {
         }
     }
 
+    public Benchmark(int resolution, boolean showOutput, boolean showBenchmarkOutput, boolean saveOutput, int threads) {
+        UI.set(this);
+        this.resolution = resolution;
+        this.showOutput = showOutput;
+        this.showBenchmarkOutput = showBenchmarkOutput;
+        this.saveOutput = saveOutput;
+        this.showWindow = false;
+        this.threads = threads;
+        errorThreshold = 6;
+        // fetch reference image from resources (jar file or classpath)
+        if (saveOutput)
+            return;
+        URL imageURL = Benchmark.class.getResource(String.format("/resources/golden_%04X.png", resolution));
+        if (imageURL == null)
+            UI.printError(Module.BENCH, "Unable to find reference frame!");
+        UI.printInfo(Module.BENCH, "Loading reference image from: %s", imageURL);
+        try {
+            BufferedImage bi = ImageIO.read(imageURL);
+            if (bi.getWidth() != resolution || bi.getHeight() != resolution)
+                UI.printError(Module.BENCH, "Reference image has invalid resolution! Expected %dx%d found %dx%d", resolution, resolution, bi.getWidth(), bi.getHeight());
+            referenceImage = new int[resolution * resolution];
+            for (int y = 0, i = 0; y < resolution; y++)
+                for (int x = 0; x < resolution; x++, i++)
+                    referenceImage[i] = bi.getRGB(x, resolution - 1 - y); // flip
+        } catch (IOException e) {
+            UI.printError(Module.BENCH, "Unable to load reference frame!");
+        }
+    }
+    
     public void execute() {
         // 10 iterations maximum - 10 minute time limit
         BenchmarkFramework framework = new BenchmarkFramework(10, 600);
