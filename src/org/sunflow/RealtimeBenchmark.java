@@ -52,8 +52,9 @@ public class RealtimeBenchmark extends SunflowAPI {
         float phi = 0;
         int frames = 0;
         while (phi < 4 * Math.PI) {
-            eye.x = 30 * (float) Math.cos(phi);
-            eye.y = 30 * (float) Math.sin(phi);
+            float x = 30 * (float) Math.cos(phi);
+            float y = 30 * (float) Math.sin(phi);
+            eye = new Point3(x, y, eye.z);
             phi += Math.PI / 30;
             frames++;
             // update camera

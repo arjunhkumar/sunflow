@@ -93,9 +93,10 @@ public class BezierMesh implements Tesselatable {
                 pz += ctrl[index + 2] * scale;
             }
         }
-        p.x = px;
-        p.y = py;
-        p.z = pz;
+//        p.x = px;
+//        p.y = py;
+//        p.z = pz;
+        p = new Point3(px, py, pz);
         if (n != null) {
             float dpdux = 0;
             float dpduy = 0;

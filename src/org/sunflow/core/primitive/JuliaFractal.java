@@ -226,10 +226,10 @@ public class JuliaFractal implements PrimitiveList {
         state.setGeoNormal(state.getNormal());
         state.setBasis(OrthoNormalBasis.makeFromW(state.getNormal()));
 
-        state.getPoint().x += state.getNormal().x * epsilon * 20;
-        state.getPoint().y += state.getNormal().y * epsilon * 20;
-        state.getPoint().z += state.getNormal().z * epsilon * 20;
-
+        float x = state.getPoint().x + state.getNormal().x * epsilon * 20;
+        float y = state.getPoint().y + state.getNormal().y * epsilon * 20;
+        float z = state.getPoint().z + state.getNormal().z * epsilon * 20;
+        state.setPoint(new Point3(x, y, z));
         state.setShader(parent.getShader(0));
         state.setModifier(parent.getModifier(0));
     }

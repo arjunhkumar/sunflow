@@ -46,7 +46,7 @@ public class PointLight implements LightSource {
     }
 
     public void getPhoton(double randX1, double randY1, double randX2, double randY2, Point3 p, Vector3 dir, Color power) {
-        p.set(lightPoint);
+        p = p.set(lightPoint);
         float phi = (float) (2 * Math.PI * randX1);
         float s = (float) Math.sqrt(randY1 * (1.0f - randY1));
         float x = (float) Math.cos(phi) * s;

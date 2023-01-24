@@ -180,9 +180,9 @@ public class FileMesh implements Tesselatable {
                 int v0 = tris[i3 + 0];
                 int v1 = tris[i3 + 1];
                 int v2 = tris[i3 + 2];
-                p0.set(verts[3 * v0 + 0], verts[3 * v0 + 1], verts[3 * v0 + 2]);
-                p1.set(verts[3 * v1 + 0], verts[3 * v1 + 1], verts[3 * v1 + 2]);
-                p2.set(verts[3 * v2 + 0], verts[3 * v2 + 1], verts[3 * v2 + 2]);
+                p0 = p0.set(verts[3 * v0 + 0], verts[3 * v0 + 1], verts[3 * v0 + 2]);
+                p1 = p1.set(verts[3 * v1 + 0], verts[3 * v1 + 1], verts[3 * v1 + 2]);
+                p2 = p2.set(verts[3 * v2 + 0], verts[3 * v2 + 1], verts[3 * v2 + 2]);
                 Point3.normal(p0, p1, p2, n); // compute normal
                 // add face normal to each vertex
                 // note that these are not normalized so this in fact weights

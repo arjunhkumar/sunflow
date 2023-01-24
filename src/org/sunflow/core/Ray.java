@@ -173,9 +173,10 @@ public final class Ray {
      * @return reference to <code>dest</code>
      */
     public final Point3 getPoint(Point3 dest) {
-        dest.x = ox + (tMax * dx);
-        dest.y = oy + (tMax * dy);
-        dest.z = oz + (tMax * dz);
+        float x = ox + (tMax * dx);
+        float y = oy + (tMax * dy);
+        float z = oz + (tMax * dz);
+        dest = new Point3(x, y, z);
         return dest;
     }
 

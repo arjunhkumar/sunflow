@@ -54,14 +54,14 @@ public class RA2Parser implements SceneParser {
             filename = filename.replace(".ra2", ".txt");
             UI.printInfo(Module.USER, "RA2 - Reading camera  : \"%s\" ...", filename);
             Parser p = new Parser(filename);
-            Point3 eye = new Point3();
-            eye.x = p.getNextFloat();
-            eye.y = p.getNextFloat();
-            eye.z = p.getNextFloat();
-            Point3 to = new Point3();
-            to.x = p.getNextFloat();
-            to.y = p.getNextFloat();
-            to.z = p.getNextFloat();
+            Point3 eye = new Point3(p.getNextFloat(),p.getNextFloat(),p.getNextFloat());
+//            eye.x = p.getNextFloat();
+//            eye.y = p.getNextFloat();
+//            eye.z = p.getNextFloat();
+            Point3 to = new Point3(p.getNextFloat(),p.getNextFloat(),p.getNextFloat());
+//            to.x = p.getNextFloat();
+//            to.y = p.getNextFloat();
+//            to.z = p.getNextFloat();
             Vector3 up = new Vector3();
             switch (p.getNextInt()) {
                 case 0:

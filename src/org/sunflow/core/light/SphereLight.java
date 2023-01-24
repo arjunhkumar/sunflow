@@ -114,9 +114,10 @@ public class SphereLight implements LightSource, Shader {
         float phi = (float) (2 * Math.PI * randY2);
         float x = r * (float) Math.cos(phi);
         float y = r * (float) Math.sin(phi);
-        p.x = center.x + x * radius;
-        p.y = center.y + y * radius;
-        p.z = center.z + z * radius;
+//        p.x = center.x + x * radius;
+//        p.y = center.y + y * radius;
+//        p.z = center.z + z * radius;
+        p = new Point3(center.x + x * radius, center.y + y * radius, center.z + z * radius);
         OrthoNormalBasis basis = OrthoNormalBasis.makeFromW(new Vector3(x, y, z));
         phi = (float) (2 * Math.PI * randX1);
         float cosPhi = (float) Math.cos(phi);

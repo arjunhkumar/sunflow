@@ -350,7 +350,7 @@ public class TriangleMesh implements PrimitiveList {
 
     public void getPoint(int tri, int i, Point3 p) {
         int index = 3 * triangles[3 * tri + i];
-        p.set(points[index], points[index + 1], points[index + 2]);
+        p = p.set(points[index], points[index + 1], points[index + 2]);
     }
 
     private static final class WaldTriangle {
@@ -677,11 +677,12 @@ public class TriangleMesh implements PrimitiveList {
             Point3 v2p = getPoint(index2);
 
             // get object space point from barycentric coordinates
-            state.getPoint().x = w * v0p.x + u * v1p.x + v * v2p.x;
-            state.getPoint().y = w * v0p.y + u * v1p.y + v * v2p.y;
-            state.getPoint().z = w * v0p.z + u * v1p.z + v * v2p.z;
+            float x = w * v0p.x + u * v1p.x + v * v2p.x;
+            float y = w * v0p.y + u * v1p.y + v * v2p.y;
+            float z = w * v0p.z + u * v1p.z + v * v2p.z;
+            state.setPoint(new Point3(x, y, z));
             // move into world space
-            state.getPoint().set(state.transformObjectToWorld(state.getPoint()));
+            state.setPoint(state.getPoint().set(state.transformObjectToWorld(state.getPoint())));
 
             Vector3 ng = Point3.normal(v0p, v1p, v2p);
             if (parent != null)

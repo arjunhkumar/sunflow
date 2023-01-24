@@ -1,9 +1,12 @@
 package org.sunflow.math;
 
-public final class Point3 {
-    public float x, y, z;
+public primitive class Point3 {
+    public final float x, y, z;
 
     public Point3() {
+        this.x = 0f;
+        this.y = 0f;
+        this.z = 0f;
     }
 
     public Point3(float x, float y, float z) {
@@ -58,23 +61,26 @@ public final class Point3 {
     }
 
     public final Point3 set(float x, float y, float z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        return this;
+        Point3 p3 = new Point3(x,y,z);
+//        this.x = x;
+//        this.y = y;
+//        this.z = z;
+        return new Point3(x,y,z);
     }
 
     public final Point3 set(Point3 p) {
-        x = p.x;
-        y = p.y;
-        z = p.z;
+        Point3 p3 = new Point3(p.x,p.y,p.z);
+//        x = p.x;
+//        y = p.y;
+//        z = p.z;
         return this;
     }
 
     public static final Point3 add(Point3 p, Vector3 v, Point3 dest) {
-        dest.x = p.x + v.x;
-        dest.y = p.y + v.y;
-        dest.z = p.z + v.z;
+        dest = new Point3(p.x + v.x, p.y + v.y, p.z + v.z);
+//        dest.x = p.x + v.x;
+//        dest.y = p.y + v.y;
+//        dest.z = p.z + v.z;
         return dest;
     }
 
@@ -87,16 +93,18 @@ public final class Point3 {
     }
 
     public static final Point3 mid(Point3 p1, Point3 p2, Point3 dest) {
-        dest.x = 0.5f * (p1.x + p2.x);
-        dest.y = 0.5f * (p1.y + p2.y);
-        dest.z = 0.5f * (p1.z + p2.z);
+        float x = 0.5f * (p1.x + p2.x);
+        float y = 0.5f * (p1.y + p2.y);
+        float z = 0.5f * (p1.z + p2.z);
+        dest = new Point3(x, y, z);
         return dest;
     }
 
     public static final Point3 blend(Point3 p0, Point3 p1, float blend, Point3 dest) {
-        dest.x = (1 - blend) * p0.x + blend * p1.x;
-        dest.y = (1 - blend) * p0.y + blend * p1.y;
-        dest.z = (1 - blend) * p0.z + blend * p1.z;
+        float x = (1 - blend) * p0.x + blend * p1.x;
+        float y = (1 - blend) * p0.y + blend * p1.y;
+        float z = (1 - blend) * p0.z + blend * p1.z;
+        dest = new Point3(x, y, z);
         return dest;
     }
 

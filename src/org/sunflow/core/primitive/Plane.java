@@ -30,9 +30,9 @@ public class Plane implements PrimitiveList {
 
     public boolean update(ParameterList pl, SunflowAPI api) {
         center = pl.getPoint("center", center);
-        Point3 b = pl.getPoint("point1", null);
-        Point3 c = pl.getPoint("point2", null);
-        if (b != null && c != null) {
+        Point3 b = pl.getPoint("point1", new Point3());
+        Point3 c = pl.getPoint("point2", new Point3());
+        if (b != new Point3() && c != new Point3()) {
             Point3 v0 = center;
             Point3 v1 = b;
             Point3 v2 = c;

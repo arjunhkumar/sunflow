@@ -256,11 +256,11 @@ public final class Matrix4 {
      * @return a new Point3 object equal to <code>this*v</code>
      */
     public final Point3 transformP(Point3 p) {
-        Point3 rp = new Point3();
-        rp.x = m00 * p.x + m01 * p.y + m02 * p.z + m03;
-        rp.y = m10 * p.x + m11 * p.y + m12 * p.z + m13;
-        rp.z = m20 * p.x + m21 * p.y + m22 * p.z + m23;
-        return rp;
+//        Point3 rp = new Point3();
+        float x = m00 * p.x + m01 * p.y + m02 * p.z + m03;
+        float y = m10 * p.x + m11 * p.y + m12 * p.z + m13;
+        float z = m20 * p.x + m21 * p.y + m22 * p.z + m23;
+        return new Point3(x, y, z);
     }
 
     /**

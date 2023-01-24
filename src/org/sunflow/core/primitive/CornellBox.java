@@ -66,9 +66,9 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
     }
 
     public boolean update(ParameterList pl, SunflowAPI api) {
-        Point3 corner0 = pl.getPoint("corner0", null);
-        Point3 corner1 = pl.getPoint("corner1", null);
-        if (corner0 != null && corner1 != null) {
+        Point3 corner0 = pl.getPoint("corner0", new Point3());
+        Point3 corner1 = pl.getPoint("corner1", new Point3());
+        if (corner0 != new Point3() && corner1 != new Point3()) {
             updateGeometry(corner0, corner1);
         }
 
@@ -356,10 +356,10 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
                 // random offset on unit square
                 double randX = state.getRandom(i, 0, n);
                 double randY = state.getRandom(i, 1, n);
-                Point3 p = new Point3();
-                p.x = (float) (lxmin * (1 - randX) + lxmax * randX);
-                p.y = (float) (lymin * (1 - randY) + lymax * randY);
-                p.z = maxZ - 0.001f;
+                Point3 p = new Point3((float) (lxmin * (1 - randX) + lxmax * randX),(float) (lymin * (1 - randY) + lymax * randY),maxZ - 0.001f);
+//                p.x = (float) (lxmin * (1 - randX) + lxmax * randX);
+//                p.y = (float) (lymin * (1 - randY) + lymax * randY);
+//                p.z = maxZ - 0.001f;
 
                 LightSample dest = new LightSample();
                 // prepare shadow ray to sampled point
@@ -392,10 +392,10 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
     }
 
     public void getPhoton(double randX1, double randY1, double randX2, double randY2, Point3 p, Vector3 dir, Color power) {
-        p.x = (float) (lxmin * (1 - randX2) + lxmax * randX2);
-        p.y = (float) (lymin * (1 - randY2) + lymax * randY2);
-        p.z = maxZ - 0.001f;
-
+        float x = (float) (lxmin * (1 - randX2) + lxmax * randX2);
+        float y = (float) (lymin * (1 - randY2) + lymax * randY2);
+        float z = maxZ - 0.001f;
+        p = new Point3(x,y,z);
         double u = 2 * Math.PI * randX1;
         double s = Math.sqrt(randY1);
         /** AR07 Modified to make Vector3 class primitive */

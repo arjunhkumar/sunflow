@@ -140,21 +140,27 @@ public final class GlobalPhotonMap implements GlobalPhotonMapInterface {
                 switch (axis) {
                     case Photon.SPLIT_X:
                         tmp = bounds.getMaximum().x;
-                        bounds.getMaximum().x = temp[index].x;
+//                        bounds.getMaximum().x = temp[index].x;
+                        bounds.setMaximum(temp[index].x,bounds.getMaximum().y,bounds.getMaximum().z);
                         balanceSegment(temp, 2 * index, start, median - 1);
-                        bounds.getMaximum().x = tmp;
+//                        bounds.getMaximum().x = tmp;
+                        bounds.setMaximum(tmp,bounds.getMaximum().y,bounds.getMaximum().z);
                         break;
                     case Photon.SPLIT_Y:
                         tmp = bounds.getMaximum().y;
-                        bounds.getMaximum().y = temp[index].y;
+//                        bounds.getMaximum().y = temp[index].y;
+                        bounds.setMaximum(bounds.getMaximum().x,temp[index].y,bounds.getMaximum().z);
                         balanceSegment(temp, 2 * index, start, median - 1);
-                        bounds.getMaximum().y = tmp;
+//                        bounds.getMaximum().y = tmp;
+                        bounds.setMaximum(bounds.getMaximum().x,tmp,bounds.getMaximum().z);
                         break;
                     default:
                         tmp = bounds.getMaximum().z;
-                        bounds.getMaximum().z = temp[index].z;
+//                        bounds.getMaximum().z = temp[index].z;
+                        bounds.setMaximum(bounds.getMaximum().x,bounds.getMaximum().y,temp[index].z);
                         balanceSegment(temp, 2 * index, start, median - 1);
-                        bounds.getMaximum().z = tmp;
+//                        bounds.getMaximum().z = tmp;
+                        bounds.setMaximum(bounds.getMaximum().x,bounds.getMaximum().y,tmp);
                 }
             } else
                 temp[2 * index] = photons[start];
@@ -165,21 +171,27 @@ public final class GlobalPhotonMap implements GlobalPhotonMapInterface {
                 switch (axis) {
                     case Photon.SPLIT_X:
                         tmp = bounds.getMinimum().x;
-                        bounds.getMinimum().x = temp[index].x;
+//                        bounds.getMinimum().x = temp[index].x;
+                        bounds.setMinimum(temp[index].x,bounds.getMinimum().y,bounds.getMinimum().z);
                         balanceSegment(temp, (2 * index) + 1, median + 1, end);
-                        bounds.getMinimum().x = tmp;
+//                        bounds.getMinimum().x = tmp;
+                        bounds.setMinimum(tmp,bounds.getMinimum().y,bounds.getMinimum().z);
                         break;
                     case Photon.SPLIT_Y:
                         tmp = bounds.getMinimum().y;
-                        bounds.getMinimum().y = temp[index].y;
+//                        bounds.getMinimum().y = temp[index].y;
+                        bounds.setMinimum(bounds.getMinimum().x,temp[index].y,bounds.getMinimum().z);
                         balanceSegment(temp, (2 * index) + 1, median + 1, end);
-                        bounds.getMinimum().y = tmp;
+//                        bounds.getMinimum().y = tmp;
+                        bounds.setMinimum(bounds.getMinimum().x,tmp,bounds.getMinimum().z);
                         break;
                     default:
                         tmp = bounds.getMinimum().z;
-                        bounds.getMinimum().z = temp[index].z;
+//                        bounds.getMinimum().z = temp[index].z;
+                        bounds.setMinimum(bounds.getMinimum().x,bounds.getMinimum().y,temp[index].z);
                         balanceSegment(temp, (2 * index) + 1, median + 1, end);
-                        bounds.getMinimum().z = tmp;
+//                        bounds.getMinimum().z = tmp;
+                        bounds.setMinimum(bounds.getMinimum().x,bounds.getMinimum().y,tmp);
                 }
             } else
                 temp[(2 * index) + 1] = photons[end];
@@ -298,7 +310,7 @@ public final class GlobalPhotonMap implements GlobalPhotonMapInterface {
         for (int i = 1; i <= quadStoredPhotons; i++) {
             UI.taskUpdate(i);
             Photon curr = photons[i];
-            p.set(curr.x, curr.y, curr.z);
+            p = p.set(curr.x, curr.y, curr.z);
             Vector3.decode(curr.normal, n);
             irr.set(Color.BLACK);
             np.reset(p, maxDist2);
@@ -315,7 +327,7 @@ public final class GlobalPhotonMap implements GlobalPhotonMapInterface {
                 Vector3.decode(phot.dir, pdir);
                 float cos = -Vector3.dot(pdir, n);
                 if (cos > 0.01f) {
-                    ppos.set(phot.x, phot.y, phot.z);
+                    ppos = ppos.set(phot.x, phot.y, phot.z);
                     Point3.sub(ppos, p, pvec);
                     float pcos = Vector3.dot(pvec, n);
                     if ((pcos < maxNDist) && (pcos > -maxNDist))

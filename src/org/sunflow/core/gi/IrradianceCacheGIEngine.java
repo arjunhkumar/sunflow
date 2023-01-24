@@ -145,10 +145,11 @@ public class IrradianceCacheGIEngine implements GIEngine {
                 k |= (p.y > node.center.y) ? 2 : 0;
                 k |= (p.z > node.center.z) ? 4 : 0;
                 if (node.children[k] == null) {
-                    Point3 c = new Point3(node.center);
-                    c.x += ((k & 1) == 0) ? -node.quadSideLength : node.quadSideLength;
-                    c.y += ((k & 2) == 0) ? -node.quadSideLength : node.quadSideLength;
-                    c.z += ((k & 4) == 0) ? -node.quadSideLength : node.quadSideLength;
+//                    Point3 c = new Point3(node.center);
+                    float x = node.center.x + (((k & 1) == 0) ? -node.quadSideLength : node.quadSideLength);
+                    float y = node.center.y + (((k & 2) == 0) ? -node.quadSideLength : node.quadSideLength);
+                    float z = node.center.z + (((k & 4) == 0) ? -node.quadSideLength : node.quadSideLength);
+                    Point3 c = new Point3(x,y,z);
                     node.children[k] = new Node(c, node.halfSideLength);
                 }
                 node = node.children[k];

@@ -197,9 +197,10 @@ public final class ShadingState implements Iterable<LightSample> {
             bias = Math.max(bias, 25 * Math.ulp(Math.abs(p.y)));
         else
             bias = Math.max(bias, 25 * Math.ulp(Math.abs(p.z)));
-        p.x += bias * ng.x;
-        p.y += bias * ng.y;
-        p.z += bias * ng.z;
+        float x = p.x + bias * ng.x;
+        float y = p.y + bias * ng.y;
+        float z = p.z + bias * ng.z;
+        p = new Point3(x, y, z);
     }
 
     /**
@@ -523,6 +524,10 @@ public final class ShadingState implements Iterable<LightSample> {
         return p;
     }
 
+    public final void setPoint(Point3 p) {
+        this.p= p;
+    }
+    
     /**
      * Get shading normal at the hit point. This may differ from the geometric
      * normal

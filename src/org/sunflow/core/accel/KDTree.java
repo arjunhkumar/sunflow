@@ -269,37 +269,47 @@ public class KDTree implements AccelerationStructure {
             switch (axis) {
                 case 0:
                     max = bounds.getMaximum().x;
-                    bounds.getMaximum().x = split;
+//                    bounds.getMaximum().x = split;
+                    bounds.setMaximum(split,bounds.getMaximum().y,bounds.getMaximum().z);
                     v0 = dumpObj(nextOffset, vertOffset, maxN, bounds, file, mtlFile);
                     // restore and go to other side
-                    bounds.getMaximum().x = max;
+//                    bounds.getMaximum().x = max;
+                    bounds.setMaximum(max,bounds.getMaximum().y,bounds.getMaximum().z);
                     min = bounds.getMinimum().x;
-                    bounds.getMinimum().x = split;
+//                    bounds.getMinimum().x = split;
+                    bounds.setMinimum(split,bounds.getMinimum().y, bounds.getMinimum().z);
                     v0 = dumpObj(nextOffset + 2, v0, maxN, bounds, file, mtlFile);
-                    bounds.getMinimum().x = min;
+//                    bounds.getMinimum().x = min;
+                    bounds.setMinimum(min,bounds.getMinimum().y, bounds.getMinimum().z);
                     break;
                 case 1 << 30:
                     max = bounds.getMaximum().y;
-                    bounds.getMaximum().y = split;
+//                    bounds.getMaximum().y = split;
+                    bounds.setMaximum(bounds.getMaximum().x,split,bounds.getMaximum().z);
                     v0 = dumpObj(nextOffset, vertOffset, maxN, bounds, file, mtlFile);
                     // restore and go to other side
-                    bounds.getMaximum().y = max;
+                    bounds.setMaximum(bounds.getMaximum().x,max,bounds.getMaximum().z);
                     min = bounds.getMinimum().y;
-                    bounds.getMinimum().y = split;
+//                    bounds.getMinimum().y = split;
+                    bounds.setMinimum(bounds.getMinimum().x,split, bounds.getMinimum().z);
                     v0 = dumpObj(nextOffset + 2, v0, maxN, bounds, file, mtlFile);
-                    bounds.getMinimum().y = min;
+                    bounds.setMinimum(bounds.getMinimum().x,min, bounds.getMinimum().z);
                     break;
                 case 2 << 30:
                     max = bounds.getMaximum().z;
-                    bounds.getMaximum().z = split;
+//                    bounds.getMaximum().z = split;
+                    bounds.setMaximum(bounds.getMaximum().x,bounds.getMaximum().y,split);
                     v0 = dumpObj(nextOffset, vertOffset, maxN, bounds, file, mtlFile);
                     // restore and go to other side
-                    bounds.getMaximum().z = max;
+//                    bounds.getMaximum().z = max;
+                    bounds.setMaximum(bounds.getMaximum().x,bounds.getMaximum().y,max);
                     min = bounds.getMinimum().z;
-                    bounds.getMinimum().z = split;
+//                    bounds.getMinimum().z = split;
+                    bounds.setMinimum(bounds.getMinimum().x,bounds.getMinimum().y,split);
                     v0 = dumpObj(nextOffset + 2, v0, maxN, bounds, file, mtlFile);
                     // restore and go to other side
-                    bounds.getMinimum().z = min;
+//                    bounds.getMinimum().z = min;
+                    bounds.setMinimum(bounds.getMinimum().x,bounds.getMinimum().y,min);
                     break;
                 default:
                     v0 = vertOffset;

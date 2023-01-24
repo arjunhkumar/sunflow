@@ -23,9 +23,10 @@ public class PerlinModifier implements Modifier {
 
     public void modify(ShadingState state) {
         Point3 p = state.transformWorldToObject(state.getPoint());
-        p.x *= size;
-        p.y *= size;
-        p.z *= size;
+//        p.x *= size;
+//        p.y *= size;
+//        p.z *= size;
+        p = new Point3(p.x * size, p.y * size, p.z * size);
         Vector3 normal = state.transformNormalWorldToObject(state.getNormal());
         double f0 = f(p.x, p.y, p.z);
         double fx = f(p.x + .0001, p.y, p.z);
