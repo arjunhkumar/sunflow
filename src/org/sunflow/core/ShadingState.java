@@ -820,10 +820,10 @@ public final class ShadingState implements Iterable<LightSample> {
      * @return occlusion color
      */
     public final Color occlusion(int samples, float maxDist, Color bright, Color dark) {
-        if (n == null) {
+//        if (n == null) {
             // in case we got called on a geometry without orientation
-            return bright;
-        }
+//            return bright;
+//        }
         // make sure we are on the right side of the material
         faceforward();
         OrthoNormalBasis onb = getBasis();

@@ -401,11 +401,12 @@ public class BucketRenderer implements ImageSampler {
                 c = state.getResult();
                 shader = state.getShader();
                 instance = state.getInstance();
-                if (state.getNormal() != null) {
+                /** AR07 Modified to make Vector3 class primitive */
+//                if (state.getNormal() != null) {
                     nx = state.getNormal().x;
                     ny = state.getNormal().y;
                     nz = state.getNormal().z;
-                }
+//                }
                 alpha = state.getInstance() == null ? 0 : 1;
             }
             n = 1;

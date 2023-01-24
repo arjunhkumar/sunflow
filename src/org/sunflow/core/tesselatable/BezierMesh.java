@@ -96,7 +96,7 @@ public class BezierMesh implements Tesselatable {
         p.x = px;
         p.y = py;
         p.z = pz;
-        if (n != null) {
+//        if (n != null) {
             float dpdux = 0;
             float dpduy = 0;
             float dpduz = 0;
@@ -120,7 +120,7 @@ public class BezierMesh implements Tesselatable {
             float y = (dpduz * dpdvx - dpdux * dpdvz);
             float z = (dpdux * dpdvy - dpduy * dpdvx);
             n = new Vector3(x, y, z);
-        }
+//        }
     }
 
     public PrimitiveList tesselate() {
@@ -133,7 +133,8 @@ public class BezierMesh implements Tesselatable {
         float step = 1.0f / subdivs;
         int vstride = subdivs + 1;
         Point3 p = new Point3();
-        Vector3 n = smooth ? new Vector3() : null;
+        /** AR07 Modified to make Vector3 class primitive */
+        Vector3 n = new Vector3();
         for (float[] patch : patches) {
             // create patch vertices
             for (int i = 0, voff = 0; i <= subdivs; i++) {

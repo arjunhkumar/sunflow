@@ -192,11 +192,13 @@ public class SunSkyLight implements LightSource, PrimitiveList, Shader {
     }
 
     public boolean update(ParameterList pl, SunflowAPI api) {
-        Vector3 up = pl.getVector("up", null);
-        Vector3 east = pl.getVector("east", null);
-        if (up != null && east != null)
+        /** AR07 Modified to make Vector3 class primitive */
+        Vector3 up = pl.getVector("up", new Vector3());
+        Vector3 east = pl.getVector("east", new Vector3());
+        /** AR07 Modified to make Vector3 class primitive */
+        if (up != (new Vector3()) && east != (new Vector3()))
             basis = OrthoNormalBasis.makeFromWV(up, east);
-        else if (up != null)
+        else if (up != (new Vector3()))
             basis = OrthoNormalBasis.makeFromW(up);
         numSkySamples = pl.getInt("samples", numSkySamples);
         sunDirWorld = pl.getVector("sundir", sunDirWorld);

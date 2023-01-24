@@ -35,8 +35,9 @@ public class ShadingCache {
     }
 
     public Color lookup(ShadingState state, Shader shader) {
-        if (state.getNormal() == null)
-            return null;
+        /** AR07 Modified to make Vector3 class primitive */
+//        if (state.getNormal() == null)
+//            return null;
         // search further
         for (Sample s = first; s != null; s = s.next) {
             if (s.i != state.getInstance())
@@ -56,8 +57,9 @@ public class ShadingCache {
     }
 
     public void add(ShadingState state, Shader shader, Color c) {
-        if (state.getNormal() == null)
-            return;
+        /** AR07 Modified to make Vector3 class primitive */
+        //        if (state.getNormal() == null)
+//            return;
         depth++;
         Sample s = new Sample();
         s.i = state.getInstance();

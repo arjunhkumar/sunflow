@@ -163,7 +163,8 @@ public class Instance implements RenderObject {
      */
     public void prepareShadingState(ShadingState state) {
         geometry.prepareShadingState(state);
-        if (state.getNormal() != null && state.getGeoNormal() != null)
+        /** AR07 Modified to make Vector3 class primitive */
+//        if (state.getNormal() != null && state.getGeoNormal() != null)
             state.correctShadingNormal();
         // run modifier if it was provided
         if (state.getModifier() != null)

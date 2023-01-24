@@ -18,12 +18,12 @@ public class QuickGrayShader implements Shader {
     }
 
     public Color getRadiance(ShadingState state) {
-        if (state.getNormal() == null) {
+//        if (state.getNormal() == null) {
             // if this shader has been applied to an infinite instance because
             // of shader overrides
             // run the default shader, otherwise, just shade black
-            return state.getShader() != this ? state.getShader().getRadiance(state) : Color.BLACK;
-        }
+//            return state.getShader() != this ? state.getShader().getRadiance(state) : Color.BLACK;
+//        }
         // make sure we are on the right side of the material
         state.faceforward();
         // setup lighting

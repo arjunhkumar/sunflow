@@ -14,7 +14,8 @@ public class IDShader implements Shader {
 
     public Color getRadiance(ShadingState state) {
         Vector3 n = state.getNormal();
-        float f = n == null ? 1.0f : Math.abs(state.getRay().dot(n));
+        /** AR07 Modified to make Vector3 class primitive */
+        float f = Math.abs(state.getRay().dot(n));
         return new Color(state.getInstance().hashCode()).mul(f);
     }
 
