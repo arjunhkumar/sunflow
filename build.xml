@@ -2,7 +2,7 @@
 <project name="Sunflow" default="release">
 	<!-- This needs to change with every release -->
 	<property name="sunflow.version" value="0.07.3" />
-	<property name="sunflow.jdk.level" value="5" />
+	<property name="sunflow.jdk.level" value="21" />
 	<property name="sunflow.zip.comment" value="Sunflow rendering system v${sunflow.version}" />
 	<property name="sunflow.libs" value="janino.jar" />
 	<property name="sunflow.jar.filename" value="sunflow.jar" />
@@ -34,8 +34,9 @@
 	<!-- build directory targets -->
 	<target name="compile" depends="init" description="Compile source">
 		<mkdir dir="${build.classes.dir}" />
-		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" source="${sunflow.jdk.level}" target="${sunflow.jdk.level}" classpath="${sunflow.libs}">
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" source="${sunflow.jdk.level}" target="${sunflow.jdk.level}" classpath="${sunflow.libs}" fork="yes" executable="/home/arjun/WD/J9/Containers/openj9_valuetypes_merged_sanity/build/linux-x86_64-server-release/images/jdk/bin/javac">
 			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-XDenablePrimitiveClasses" />
 		</javac>
 	</target>
 
