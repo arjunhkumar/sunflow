@@ -2,7 +2,7 @@ package org.sunflow.math;
 
 public final class Point3 {
     /* AR07 - Modifying fields are final so this class can be inlined **/
-    public float x, y, z;
+    private final float x, y, z;
     private final boolean isNull;
 
     public Point3() {
