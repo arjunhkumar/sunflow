@@ -5,7 +5,7 @@
 	<property name="sunflow.jdk.level" value="21" />
 	<property name="sunflow.zip.comment" value="Sunflow rendering system v${sunflow.version}" />
 	<property name="sunflow.libs" value="janino.jar" />
-	<property name="sunflow.jar.filename" value="sunflow.jar" />
+	<property name="sunflow.jar.filename" value="sunflow-0.07.2.jar" />
 
 	<!-- Basic targets -->
 	<target name="init">

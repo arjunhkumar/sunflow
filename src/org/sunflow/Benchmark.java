@@ -2,6 +2,7 @@ package org.sunflow;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -67,6 +68,11 @@ public class Benchmark implements BenchmarkTest, UserInterface, Display {
 
     public Benchmark(int resolution, boolean showOutput, boolean showBenchmarkOutput, boolean saveOutput) {
         this(resolution, showOutput, showBenchmarkOutput, saveOutput, 0, false);
+    }
+    
+    /** AR07 - Added to get invoked from dacapo benchmark which still uses this out-dated Constructor*/
+    public Benchmark(int resolution, boolean showOutput, boolean showBenchmarkOutput, boolean saveOutput, int threads) {
+        this(resolution, showOutput, showBenchmarkOutput, saveOutput, threads, false);
     }
 
     public Benchmark(int resolution, boolean showOutput, boolean showBenchmarkOutput, boolean saveOutput, int threads, boolean showWindow) {
