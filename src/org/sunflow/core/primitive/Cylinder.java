@@ -39,14 +39,14 @@ public class Cylinder implements PrimitiveList {
         state.getRay().getPoint(state.getPoint());
         Instance parent = state.getInstance();
         Point3 localPoint = state.transformWorldToObject(state.getPoint());
-        state.getNormal().set(localPoint.x, localPoint.y, 0);
+        state.getNormal().set(localPoint.getX(), localPoint.getY(), 0);
         state.getNormal().normalize();
 
         float phi = (float) Math.atan2(state.getNormal().y, state.getNormal().x);
         if (phi < 0)
             phi += 2 * Math.PI;
         state.getUV().x = phi / (float) (2 * Math.PI);
-        state.getUV().y = (localPoint.z + 1) * 0.5f;
+        state.getUV().y = (localPoint.getZ() + 1) * 0.5f;
         state.setShader(parent.getShader(0));
         state.setModifier(parent.getModifier(0));
         // into world space

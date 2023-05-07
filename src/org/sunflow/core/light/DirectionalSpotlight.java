@@ -61,9 +61,9 @@ public class DirectionalSpotlight implements LightSource {
                 z -= (t * dir.z);
                 if (((x * x) + (y * y) + (z * z)) <= r2) {
                     Point3 p = new Point3();
-                    p.x = src.x + x;
-                    p.y = src.y + y;
-                    p.z = src.z + z;
+                    p.x = src.getX() + x;
+                    p.y = src.getY() + y;
+                    p.z = src.getZ() + z;
                     LightSample dest = new LightSample();
                     dest.setShadowRay(new Ray(state.getPoint(), p));
                     dest.setRadiance(radiance, radiance);

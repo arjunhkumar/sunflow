@@ -144,9 +144,9 @@ public class BezierMesh implements Tesselatable {
                     float[] bv = bernstein(v);
                     float[] bdv = bernsteinDeriv(v);
                     getPatchPoint(u, v, patch, bu, bv, bdu, bdv, p, n);
-                    vertices[vidx + voff + 0] = p.x;
-                    vertices[vidx + voff + 1] = p.y;
-                    vertices[vidx + voff + 2] = p.z;
+                    vertices[vidx + voff + 0] = p.getX();
+                    vertices[vidx + voff + 1] = p.getY();
+                    vertices[vidx + voff + 2] = p.getZ();
                     if (smooth) {
                         normals[vidx + voff + 0] = n.x;
                         normals[vidx + voff + 1] = n.y;

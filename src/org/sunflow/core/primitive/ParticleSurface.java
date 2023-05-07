@@ -38,8 +38,8 @@ public class ParticleSurface implements PrimitiveList {
         BoundingBox bounds = new BoundingBox();
         for (int i = 0, i3 = 0; i < n; i++, i3 += 3)
             bounds.include(particles[i3], particles[i3 + 1], particles[i3 + 2]);
-        bounds.include(bounds.getMinimum().x - r, bounds.getMinimum().y - r, bounds.getMinimum().z - r);
-        bounds.include(bounds.getMaximum().x + r, bounds.getMaximum().y + r, bounds.getMaximum().z + r);
+        bounds.include(bounds.getMinimum().getX() - r, bounds.getMinimum().getY() - r, bounds.getMinimum().getZ() - r);
+        bounds.include(bounds.getMaximum().getX() + r, bounds.getMaximum().getY() + r, bounds.getMaximum().getZ() + r);
         return o2w == null ? bounds : o2w.transform(bounds);
     }
 
@@ -73,7 +73,7 @@ public class ParticleSurface implements PrimitiveList {
         localPoint.y -= particles[3 * state.getPrimitiveID() + 1];
         localPoint.z -= particles[3 * state.getPrimitiveID() + 2];
 
-        state.getNormal().set(localPoint.x, localPoint.y, localPoint.z);
+        state.getNormal().set(localPoint.getX(), localPoint.getY(), localPoint.getZ());
         state.getNormal().normalize();
 
         state.setShader(state.getInstance().getShader(0));

@@ -39,7 +39,7 @@ public class BanchoffSurface implements PrimitiveList {
         state.getRay().getPoint(state.getPoint());
         Instance parent = state.getInstance();
         Point3 n = state.transformWorldToObject(state.getPoint());
-        state.getNormal().set(n.x * (2 * n.x * n.x - 1), n.y * (2 * n.y * n.y - 1), n.z * (2 * n.z * n.z - 1));
+        state.getNormal().set(n.getX() * (2 * n.getX() * n.getX() - 1), n.getY() * (2 * n.getY() * n.getY() - 1), n.getZ() * (2 * n.getZ() * n.getZ() - 1));
         state.getNormal().normalize();
         state.setShader(parent.getShader(0));
         state.setModifier(parent.getModifier(0));

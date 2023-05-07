@@ -47,12 +47,12 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
         lightBounds.include(c1);
 
         // cube extents
-        minX = lightBounds.getMinimum().x;
-        minY = lightBounds.getMinimum().y;
-        minZ = lightBounds.getMinimum().z;
-        maxX = lightBounds.getMaximum().x;
-        maxY = lightBounds.getMaximum().y;
-        maxZ = lightBounds.getMaximum().z;
+        minX = lightBounds.getMinimum().getX();
+        minY = lightBounds.getMinimum().getY();
+        minZ = lightBounds.getMinimum().getZ();
+        maxX = lightBounds.getMaximum().getX();
+        maxY = lightBounds.getMaximum().getY();
+        maxZ = lightBounds.getMaximum().getZ();
 
         // work around epsilon problems for light test
         lightBounds.enlargeUlps();
@@ -115,21 +115,21 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
         b.include(new Point3(maxX, maxY, maxZ));
         if (b.intersects(box)) {
             // the box is overlapping or enclosed
-            if (!b.contains(new Point3(box.getMinimum().x, box.getMinimum().y, box.getMinimum().z)))
+            if (!b.contains(new Point3(box.getMinimum().getX(), box.getMinimum().getY(), box.getMinimum().getZ())))
                 return true;
-            if (!b.contains(new Point3(box.getMinimum().x, box.getMinimum().y, box.getMaximum().z)))
+            if (!b.contains(new Point3(box.getMinimum().getX(), box.getMinimum().getY(), box.getMaximum().getZ())))
                 return true;
-            if (!b.contains(new Point3(box.getMinimum().x, box.getMaximum().y, box.getMinimum().z)))
+            if (!b.contains(new Point3(box.getMinimum().getX(), box.getMaximum().getY(), box.getMinimum().getZ())))
                 return true;
-            if (!b.contains(new Point3(box.getMinimum().x, box.getMaximum().y, box.getMaximum().z)))
+            if (!b.contains(new Point3(box.getMinimum().getX(), box.getMaximum().getY(), box.getMaximum().getZ())))
                 return true;
-            if (!b.contains(new Point3(box.getMaximum().x, box.getMinimum().y, box.getMinimum().z)))
+            if (!b.contains(new Point3(box.getMaximum().getX(), box.getMinimum().getY(), box.getMinimum().getZ())))
                 return true;
-            if (!b.contains(new Point3(box.getMaximum().x, box.getMinimum().y, box.getMaximum().z)))
+            if (!b.contains(new Point3(box.getMaximum().getX(), box.getMinimum().getY(), box.getMaximum().getZ())))
                 return true;
-            if (!b.contains(new Point3(box.getMaximum().x, box.getMaximum().y, box.getMinimum().z)))
+            if (!b.contains(new Point3(box.getMaximum().getX(), box.getMaximum().getY(), box.getMinimum().getZ())))
                 return true;
-            if (!b.contains(new Point3(box.getMaximum().x, box.getMaximum().y, box.getMaximum().z)))
+            if (!b.contains(new Point3(box.getMaximum().getX(), box.getMaximum().getY(), box.getMaximum().getZ())))
                 return true;
             // all vertices of the box are inside - the surface of the box is
             // not intersected
@@ -278,8 +278,8 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
                 kd = bottom;
                 break;
             case 5:
-                float lx = state.getPoint().x;
-                float ly = state.getPoint().y;
+                float lx = state.getPoint().getX();
+                float ly = state.getPoint().getY();
                 if (lx >= lxmin && lx < lxmax && ly >= lymin && ly < lymax && state.getRay().dz > 0)
                     return state.includeLights() ? radiance : Color.BLACK;
                 kd = top;
@@ -312,8 +312,8 @@ public class CornellBox implements PrimitiveList, Shader, LightSource {
                 kd = bottom;
                 break;
             case 5:
-                float lx = state.getPoint().x;
-                float ly = state.getPoint().y;
+                float lx = state.getPoint().getX();
+                float ly = state.getPoint().getY();
                 if (lx >= lxmin && lx < lxmax && ly >= lymin && ly < lymax && state.getRay().dz > 0)
                     return;
                 kd = top;

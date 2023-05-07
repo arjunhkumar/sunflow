@@ -257,13 +257,13 @@ public class QuadMesh implements PrimitiveList {
         Point3 v1p = getPoint(index1);
         Point3 v2p = getPoint(index2);
         Point3 v3p = getPoint(index2);
-        float tanux = (1 - v) * (v1p.x - v0p.x) + v * (v2p.x - v3p.x);
-        float tanuy = (1 - v) * (v1p.y - v0p.y) + v * (v2p.y - v3p.y);
-        float tanuz = (1 - v) * (v1p.z - v0p.z) + v * (v2p.z - v3p.z);
+        float tanux = (1 - v) * (v1p.getX() - v0p.getX()) + v * (v2p.getX() - v3p.getX());
+        float tanuy = (1 - v) * (v1p.getY() - v0p.getY()) + v * (v2p.getY() - v3p.getY());
+        float tanuz = (1 - v) * (v1p.getZ() - v0p.getZ()) + v * (v2p.getZ() - v3p.getZ());
 
-        float tanvx = (1 - u) * (v3p.x - v0p.x) + u * (v2p.x - v1p.x);
-        float tanvy = (1 - u) * (v3p.y - v0p.y) + u * (v2p.y - v1p.y);
-        float tanvz = (1 - u) * (v3p.z - v0p.z) + u * (v2p.z - v1p.z);
+        float tanvx = (1 - u) * (v3p.getX() - v0p.getX()) + u * (v2p.getX() - v1p.getX());
+        float tanvy = (1 - u) * (v3p.getY() - v0p.getY()) + u * (v2p.getY() - v1p.getY());
+        float tanvz = (1 - u) * (v3p.getZ() - v0p.getZ()) + u * (v2p.getZ() - v1p.getZ());
 
         float nx = tanuy * tanvz - tanuz * tanvy;
         float ny = tanuz * tanvx - tanux * tanvz;

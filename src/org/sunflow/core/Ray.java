@@ -56,9 +56,10 @@ public final class Ray {
      * @param d ray direction (need not be normalized)
      */
     public Ray(Point3 o, Vector3 d) {
-        ox = o.x;
-        oy = o.y;
-        oz = o.z;
+        /**AR07 - Added to make Point3 class primitive  */
+        ox = o.getX();
+        oy = o.getY();
+        oz = o.getZ();
         dx = d.x;
         dy = d.y;
         dz = d.z;
@@ -79,12 +80,13 @@ public final class Ray {
      * @param b end point
      */
     public Ray(Point3 a, Point3 b) {
-        ox = a.x;
-        oy = a.y;
-        oz = a.z;
-        dx = b.x - ox;
-        dy = b.y - oy;
-        dz = b.z - oz;
+        /**AR07 - Added to make Point3 class primitive  */
+        ox = a.getX();
+        oy = a.getY();
+        oz = a.getZ();
+        dx = b.getX() - ox;
+        dy = b.getY() - oy;
+        dz = b.getZ() - oz;
         tMin = EPSILON;
         float n = (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
         float in = 1.0f / n;

@@ -372,38 +372,38 @@ public class TriangleMesh implements PrimitiveList {
                 case 0: {
                     nu = ng.y / ng.x;
                     nv = ng.z / ng.x;
-                    nd = v0p.x + (nu * v0p.y) + (nv * v0p.z);
-                    ax = v0p.y;
-                    ay = v0p.z;
-                    bx = v2p.y - ax;
-                    by = v2p.z - ay;
-                    cx = v1p.y - ax;
-                    cy = v1p.z - ay;
+                    nd = v0p.getX() + (nu * v0p.getY()) + (nv * v0p.getZ());
+                    ax = v0p.getY();
+                    ay = v0p.getZ();
+                    bx = v2p.getY() - ax;
+                    by = v2p.getZ() - ay;
+                    cx = v1p.getY() - ax;
+                    cy = v1p.getZ() - ay;
                     break;
                 }
                 case 1: {
                     nu = ng.z / ng.y;
                     nv = ng.x / ng.y;
-                    nd = (nv * v0p.x) + v0p.y + (nu * v0p.z);
-                    ax = v0p.z;
-                    ay = v0p.x;
-                    bx = v2p.z - ax;
-                    by = v2p.x - ay;
-                    cx = v1p.z - ax;
-                    cy = v1p.x - ay;
+                    nd = (nv * v0p.getX()) + v0p.getY() + (nu * v0p.getZ());
+                    ax = v0p.getZ();
+                    ay = v0p.getX();
+                    bx = v2p.getZ() - ax;
+                    by = v2p.getX() - ay;
+                    cx = v1p.getZ() - ax;
+                    cy = v1p.getX() - ay;
                     break;
                 }
                 case 2:
                 default: {
                     nu = ng.x / ng.z;
                     nv = ng.y / ng.z;
-                    nd = (nu * v0p.x) + (nv * v0p.y) + v0p.z;
-                    ax = v0p.x;
-                    ay = v0p.y;
-                    bx = v2p.x - ax;
-                    by = v2p.y - ay;
-                    cx = v1p.x - ax;
-                    cy = v1p.y - ay;
+                    nd = (nu * v0p.getX()) + (nv * v0p.getY()) + v0p.getZ();
+                    ax = v0p.getX();
+                    ay = v0p.getY();
+                    bx = v2p.getX() - ax;
+                    by = v2p.getY() - ay;
+                    cx = v1p.getX() - ax;
+                    cy = v1p.getY() - ay;
                 }
             }
             float det = bx * cy - by * cx;
@@ -668,9 +668,9 @@ public class TriangleMesh implements PrimitiveList {
             Point3 v2p = getPoint(index2);
 
             // get object space point from barycentric coordinates
-            state.getPoint().x = w * v0p.x + u * v1p.x + v * v2p.x;
-            state.getPoint().y = w * v0p.y + u * v1p.y + v * v2p.y;
-            state.getPoint().z = w * v0p.z + u * v1p.z + v * v2p.z;
+            state.getPoint().x = w * v0p.getX() + u * v1p.getX() + v * v2p.getX();
+            state.getPoint().y = w * v0p.getY() + u * v1p.getY() + v * v2p.getY();
+            state.getPoint().z = w * v0p.getZ() + u * v1p.getZ() + v * v2p.getZ();
             // move into world space
             state.getPoint().set(state.transformObjectToWorld(state.getPoint()));
 

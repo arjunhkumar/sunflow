@@ -71,12 +71,12 @@ public class Torus implements PrimitiveList {
         // get local point
         Point3 p = state.transformWorldToObject(state.getPoint());
         // compute local normal
-        float deriv = p.x * p.x + p.y * p.y + p.z * p.z - ri2 - ro2;
-        state.getNormal().set(p.x * deriv, p.y * deriv, p.z * deriv + 2 * ro2 * p.z);
+        float deriv = p.getX() * p.getX() + p.getY() * p.getY() + p.getZ() * p.getZ() - ri2 - ro2;
+        state.getNormal().set(p.getX() * deriv, p.getY() * deriv, p.getZ() * deriv + 2 * ro2 * p.getZ());
         state.getNormal().normalize();
 
-        double phi = Math.asin(MathUtils.clamp(p.z / ri, -1, 1));
-        double theta = Math.atan2(p.y, p.x);
+        double phi = Math.asin(MathUtils.clamp(p.getY() / ri, -1, 1));
+        double theta = Math.atan2(p.getY(), p.getX());
         if (theta < 0)
             theta += 2 * Math.PI;
         state.getUV().x = (float) (theta / (2 * Math.PI));

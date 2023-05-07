@@ -28,12 +28,12 @@ public class Box implements PrimitiveList {
             for (int i = 0; i < pts.data.length; i += 3)
                 bounds.include(pts.data[i], pts.data[i + 1], pts.data[i + 2]);
             // cube extents
-            minX = bounds.getMinimum().x;
-            minY = bounds.getMinimum().y;
-            minZ = bounds.getMinimum().z;
-            maxX = bounds.getMaximum().x;
-            maxY = bounds.getMaximum().y;
-            maxZ = bounds.getMaximum().z;
+            minX = bounds.getMinimum().getX();
+            minY = bounds.getMinimum().getY();
+            minZ = bounds.getMinimum().getZ();
+            maxX = bounds.getMaximum().getX();
+            maxY = bounds.getMaximum().getY();
+            maxZ = bounds.getMaximum().getZ();
         }
         return true;
     }

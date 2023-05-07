@@ -139,31 +139,31 @@ public class JuliaFractal implements PrimitiveList {
         Instance parent = state.getInstance();
         // compute local normal
         Point3 p = state.transformWorldToObject(state.getPoint());
-        float gx1w = p.x - DELTA;
-        float gx1x = p.y;
-        float gx1y = p.z;
+        float gx1w = p.getX() - DELTA;
+        float gx1x = p.getY();
+        float gx1y = p.getZ();
         float gx1z = 0;
-        float gx2w = p.x + DELTA;
-        float gx2x = p.y;
-        float gx2y = p.z;
+        float gx2w = p.getX() + DELTA;
+        float gx2x = p.getY();
+        float gx2y = p.getZ();
         float gx2z = 0;
 
-        float gy1w = p.x;
-        float gy1x = p.y - DELTA;
-        float gy1y = p.z;
+        float gy1w = p.getX();
+        float gy1x = p.getY() - DELTA;
+        float gy1y = p.getZ();
         float gy1z = 0;
-        float gy2w = p.x;
-        float gy2x = p.y + DELTA;
-        float gy2y = p.z;
+        float gy2w = p.getX();
+        float gy2x = p.getY() + DELTA;
+        float gy2y = p.getZ();
         float gy2z = 0;
 
-        float gz1w = p.x;
-        float gz1x = p.y;
-        float gz1y = p.z - DELTA;
+        float gz1w = p.getX();
+        float gz1x = p.getY();
+        float gz1y = p.getZ() - DELTA;
         float gz1z = 0;
-        float gz2w = p.x;
-        float gz2x = p.y;
-        float gz2y = p.z + DELTA;
+        float gz2w = p.getX();
+        float gz2x = p.getY();
+        float gz2y = p.getZ() + DELTA;
         float gz2z = 0;
 
         for (int i = 0; i < maxIterations; i++) {

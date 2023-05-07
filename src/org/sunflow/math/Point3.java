@@ -3,7 +3,7 @@ package org.sunflow.math;
 public final class Point3 {
     /* AR07 - Modifying fields are final so this class can be inlined **/
     public float x, y, z;
-    public boolean isNull;
+    private final boolean isNull;
 
     public Point3() {
         this.x = 0;
@@ -20,9 +20,9 @@ public final class Point3 {
     }
 
     public Point3(Point3 p) {
-        x = p.x;
-        y = p.y;
-        z = p.z;
+        this.x = p.x;
+        this.y = p.y;
+        this.z = p.z;
         this.isNull = false;
     }
 
@@ -137,4 +137,25 @@ public final class Point3 {
     public final String toString() {
         return String.format("(%.2f, %.2f, %.2f)", x, y, z);
     }
+
+    /**AR07 - Added to make this class primitive  */
+    public float getX() {
+        return x;
+    }
+
+    /**AR07 - Added to make this class primitive  */
+    public float getY() {
+        return y;
+    }
+
+    /**AR07 - Added to make this class primitive  */
+    public float getZ() {
+        return z;
+    }
+
+    /**AR07 - Added to make this class primitive  */
+    public boolean isNull() {
+        return isNull;
+    }
+    
 }

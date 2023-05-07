@@ -680,7 +680,7 @@ public final class ShadingState implements Iterable<LightSample> {
      * @return color observed behind the current shading point
      */
     public final Color traceTransparency() {
-        return traceRefraction(new Ray(p.x, p.y, p.z, r.dx, r.dy, r.dz), 0);
+        return traceRefraction(new Ray(p.getX(), p.getY(), p.getZ(), r.dx, r.dy, r.dz), 0);
     }
 
     /**

@@ -27,10 +27,10 @@ public class PerlinModifier implements Modifier {
         p.y *= size;
         p.z *= size;
         Vector3 normal = state.transformNormalWorldToObject(state.getNormal());
-        double f0 = f(p.x, p.y, p.z);
-        double fx = f(p.x + .0001, p.y, p.z);
-        double fy = f(p.x, p.y + .0001, p.z);
-        double fz = f(p.x, p.y, p.z + .0001);
+        double f0 = f(p.getX(), p.getY(), p.getZ());
+        double fx = f(p.getX() + .0001, p.getY(), p.getZ());
+        double fy = f(p.getX(), p.getY() + .0001, p.getZ());
+        double fz = f(p.getX(), p.getY(), p.getZ() + .0001);
 
         normal.x -= scale * (fx - f0) / .0001;
         normal.y -= scale * (fy - f0) / .0001;

@@ -39,7 +39,7 @@ public class Sphere implements PrimitiveList {
         state.getRay().getPoint(state.getPoint());
         Instance parent = state.getInstance();
         Point3 localPoint = state.transformWorldToObject(state.getPoint());
-        state.getNormal().set(localPoint.x, localPoint.y, localPoint.z);
+        state.getNormal().set(localPoint.getX(), localPoint.getY(), localPoint.getZ());
         state.getNormal().normalize();
 
         float phi = (float) Math.atan2(state.getNormal().y, state.getNormal().x);

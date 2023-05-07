@@ -46,31 +46,31 @@ public class Plane implements PrimitiveList {
             float ax, ay, bx, by, cx, cy;
             switch (k) {
                 case 0: {
-                    ax = v0.y;
-                    ay = v0.z;
-                    bx = v2.y - ax;
-                    by = v2.z - ay;
-                    cx = v1.y - ax;
-                    cy = v1.z - ay;
+                    ax = v0.getY();
+                    ay = v0.getZ();
+                    bx = v2.getY() - ax;
+                    by = v2.getZ() - ay;
+                    cx = v1.getY() - ax;
+                    cy = v1.getZ() - ay;
                     break;
                 }
                 case 1: {
-                    ax = v0.z;
-                    ay = v0.x;
-                    bx = v2.z - ax;
-                    by = v2.x - ay;
-                    cx = v1.z - ax;
-                    cy = v1.x - ay;
+                    ax = v0.getZ();
+                    ay = v0.getX();
+                    bx = v2.getZ() - ax;
+                    by = v2.getX() - ay;
+                    cx = v1.getZ() - ax;
+                    cy = v1.getX() - ay;
                     break;
                 }
                 case 2:
                 default: {
-                    ax = v0.x;
-                    ay = v0.y;
-                    bx = v2.x - ax;
-                    by = v2.y - ay;
-                    cx = v1.x - ax;
-                    cy = v1.y - ay;
+                    ax = v0.getX();
+                    ay = v0.getY();
+                    bx = v2.getX() - ax;
+                    by = v2.getY() - ay;
+                    cx = v1.getX() - ax;
+                    cy = v1.getY() - ay;
                 }
             }
             float det = bx * cy - by * cx;
@@ -102,18 +102,18 @@ public class Plane implements PrimitiveList {
         float hu, hv;
         switch (k) {
             case 0: {
-                hu = p.y;
-                hv = p.z;
+                hu = p.getY();
+                hv = p.getZ();
                 break;
             }
             case 1: {
-                hu = p.z;
-                hv = p.x;
+                hu = p.getZ();
+                hv = p.getX();
                 break;
             }
             case 2: {
-                hu = p.x;
-                hv = p.y;
+                hu = p.getX();
+                hv = p.getY();
                 break;
             }
             default:
@@ -128,7 +128,7 @@ public class Plane implements PrimitiveList {
         float dn = normal.x * r.dx + normal.y * r.dy + normal.z * r.dz;
         if (dn == 0.0)
             return;
-        float t = (((center.x - r.ox) * normal.x) + ((center.y - r.oy) * normal.y) + ((center.z - r.oz) * normal.z)) / dn;
+        float t = (((center.getX() - r.ox) * normal.x) + ((center.getY() - r.oy) * normal.y) + ((center.getZ() - r.oz) * normal.z)) / dn;
         if (r.isInside(t)) {
             r.setMax(t);
             state.setIntersection(0);

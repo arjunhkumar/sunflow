@@ -138,9 +138,9 @@ public class IrradianceCacheGIEngine implements GIEngine {
         if (root.isInside(p)) {
             while (node.sideLength >= (4.0 * r0 * tolerance)) {
                 int k = 0;
-                k |= (p.x > node.center.x) ? 1 : 0;
-                k |= (p.y > node.center.y) ? 2 : 0;
-                k |= (p.z > node.center.z) ? 4 : 0;
+                k |= (p.getX() > node.center.getX()) ? 1 : 0;
+                k |= (p.getY() > node.center.getY()) ? 2 : 0;
+                k |= (p.getZ() > node.center.getZ()) ? 4 : 0;
                 if (node.children[k] == null) {
                     Point3 c = new Point3(node.center);
                     c.x += ((k & 1) == 0) ? -node.quadSideLength : node.quadSideLength;
@@ -184,7 +184,7 @@ public class IrradianceCacheGIEngine implements GIEngine {
         }
 
         final boolean isInside(Point3 p) {
-            return (Math.abs(p.x - center.x) < halfSideLength) && (Math.abs(p.y - center.y) < halfSideLength) && (Math.abs(p.z - center.z) < halfSideLength);
+            return (Math.abs(p.getX() - center.getX()) < halfSideLength) && (Math.abs(p.getY() - center.getY()) < halfSideLength) && (Math.abs(p.getZ() - center.getZ()) < halfSideLength);
         }
 
         final float find(Sample x) {
@@ -205,7 +205,7 @@ public class IrradianceCacheGIEngine implements GIEngine {
                 }
             }
             for (int i = 0; i < 8; i++)
-                if ((children[i] != null) && (Math.abs(children[i].center.x - x.pix) <= halfSideLength) && (Math.abs(children[i].center.y - x.piy) <= halfSideLength) && (Math.abs(children[i].center.z - x.piz) <= halfSideLength))
+                if ((children[i] != null) && (Math.abs(children[i].center.getX() - x.pix) <= halfSideLength) && (Math.abs(children[i].center.getY() - x.piy) <= halfSideLength) && (Math.abs(children[i].center.getZ() - x.piz) <= halfSideLength))
                     weight += children[i].find(x);
             return weight;
         }
@@ -219,9 +219,9 @@ public class IrradianceCacheGIEngine implements GIEngine {
         Sample next;
 
         Sample(Point3 p, Vector3 n) {
-            pix = p.x;
-            piy = p.y;
-            piz = p.z;
+            pix = p.getX();
+            piy = p.getY();
+            piz = p.getZ();
             Vector3 ni = new Vector3(n).normalize();
             nix = ni.x;
             niy = ni.y;
@@ -231,9 +231,9 @@ public class IrradianceCacheGIEngine implements GIEngine {
         }
 
         Sample(Point3 p, Vector3 n, float r0, Color irr) {
-            pix = p.x;
-            piy = p.y;
-            piz = p.z;
+            pix = p.getX();
+            piy = p.getY();
+            piz = p.getZ();
             Vector3 ni = new Vector3(n).normalize();
             nix = ni.x;
             niy = ni.y;

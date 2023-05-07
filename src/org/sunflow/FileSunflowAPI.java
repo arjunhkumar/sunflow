@@ -129,9 +129,10 @@ abstract class FileSunflowAPI implements SunflowAPIInterface {
         writeKeyword(Keyword.PARAMETER);
         writeString(name);
         writeKeyword(Keyword.POINT);
-        writeFloat(value.x);
-        writeFloat(value.y);
-        writeFloat(value.z);
+        /**AR07 - Added to make Point3 class primitive  */
+        writeFloat(value.getX());
+        writeFloat(value.getY());
+        writeFloat(value.getZ());
         writeNewline(0);
     }
 

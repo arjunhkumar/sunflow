@@ -34,7 +34,7 @@ public class BoundingBox {
      * @param p point to include
      */
     public BoundingBox(Point3 p) {
-        this(p.x, p.y, p.z);
+        this(p.getX(), p.getY(), p.getZ());
     }
 
     /**
@@ -101,9 +101,9 @@ public class BoundingBox {
      * @return the corresponding corner
      */
     public final Point3 getCorner(int i) {
-        float x = (i & 1) == 0 ? minimum.x : maximum.x;
-        float y = (i & 2) == 0 ? minimum.y : maximum.y;
-        float z = (i & 4) == 0 ? minimum.z : maximum.z;
+        float x = (i & 1) == 0 ? minimum.getX() : maximum.getX();
+        float y = (i & 2) == 0 ? minimum.getY() : maximum.getY();
+        float z = (i & 4) == 0 ? minimum.getZ() : maximum.getZ();
         return new Point3(x, y, z);
     }
 
@@ -116,17 +116,17 @@ public class BoundingBox {
     public final float getBound(int i) {
         switch (i) {
             case 0:
-                return minimum.x;
+                return minimum.getX();
             case 1:
-                return maximum.x;
+                return maximum.getX();
             case 2:
-                return minimum.y;
+                return minimum.getY();
             case 3:
-                return maximum.y;
+                return maximum.getY();
             case 4:
-                return minimum.z;
+                return minimum.getZ();
             case 5:
-                return maximum.z;
+                return maximum.getZ();
             default:
                 return 0;
         }
@@ -176,12 +176,12 @@ public class BoundingBox {
      */
     public final void enlargeUlps() {
         final float eps = 0.0001f;
-        minimum.x -= Math.max(eps, Math.ulp(minimum.x));
-        minimum.y -= Math.max(eps, Math.ulp(minimum.y));
-        minimum.z -= Math.max(eps, Math.ulp(minimum.z));
-        maximum.x += Math.max(eps, Math.ulp(maximum.x));
-        maximum.y += Math.max(eps, Math.ulp(maximum.y));
-        maximum.z += Math.max(eps, Math.ulp(maximum.z));
+        minimum.x -= Math.max(eps, Math.ulp(minimum.getX()));
+        minimum.y -= Math.max(eps, Math.ulp(minimum.getY()));
+        minimum.z -= Math.max(eps, Math.ulp(minimum.getZ()));
+        maximum.x += Math.max(eps, Math.ulp(maximum.getX()));
+        maximum.y += Math.max(eps, Math.ulp(maximum.getY()));
+        maximum.z += Math.max(eps, Math.ulp(maximum.getZ()));
     }
 
     /**
@@ -194,7 +194,7 @@ public class BoundingBox {
      *         otherwise
      */
     public final boolean isEmpty() {
-        return (maximum.x < minimum.x) || (maximum.y < minimum.y) || (maximum.z < minimum.z);
+        return (maximum.getX() < minimum.getX()) || (maximum.getY() < minimum.getY()) || (maximum.getZ() < minimum.getZ());
     }
 
     /**
@@ -208,7 +208,7 @@ public class BoundingBox {
      *         otherwise
      */
     public final boolean intersects(BoundingBox b) {
-        return ((b != null) && (minimum.x <= b.maximum.x) && (maximum.x >= b.minimum.x) && (minimum.y <= b.maximum.y) && (maximum.y >= b.minimum.y) && (minimum.z <= b.maximum.z) && (maximum.z >= b.minimum.z));
+        return ((b != null) && (minimum.getX() <= b.maximum.getX()) && (maximum.getX() >= b.minimum.getX()) && (minimum.getY() <= b.maximum.getY()) && (maximum.getY() >= b.minimum.getY()) && (minimum.getZ() <= b.maximum.getZ()) && (maximum.getZ() >= b.minimum.getZ()));
     }
 
     /**
@@ -221,7 +221,7 @@ public class BoundingBox {
      *         <code>false</code> otherwise
      */
     public final boolean contains(Point3 p) {
-        return ((p != null) && (p.x >= minimum.x) && (p.x <= maximum.x) && (p.y >= minimum.y) && (p.y <= maximum.y) && (p.z >= minimum.z) && (p.z <= maximum.z));
+        return ((p != null) && (p.getX() >= minimum.getX()) && (p.getX() <= maximum.getX()) && (p.getY() >= minimum.getY()) && (p.getY() <= maximum.getY()) && (p.getZ() >= minimum.getZ()) && (p.getZ() <= maximum.getZ()));
     }
 
     /**
@@ -235,7 +235,7 @@ public class BoundingBox {
      *         <code>false</code> otherwise
      */
     public final boolean contains(float x, float y, float z) {
-        return ((x >= minimum.x) && (x <= maximum.x) && (y >= minimum.y) && (y <= maximum.y) && (z >= minimum.z) && (z <= maximum.z));
+        return ((x >= minimum.getX()) && (x <= maximum.getX()) && (y >= minimum.getY()) && (y <= maximum.getY()) && (z >= minimum.getZ()) && (z <= maximum.getZ()));
     }
 
     /**
@@ -247,18 +247,18 @@ public class BoundingBox {
      */
     public final void include(Point3 p) {
         if (p != null) {
-            if (p.x < minimum.x)
-                minimum.x = p.x;
-            if (p.x > maximum.x)
-                maximum.x = p.x;
-            if (p.y < minimum.y)
-                minimum.y = p.y;
-            if (p.y > maximum.y)
-                maximum.y = p.y;
-            if (p.z < minimum.z)
-                minimum.z = p.z;
-            if (p.z > maximum.z)
-                maximum.z = p.z;
+            if (p.getX() < minimum.getX())
+                minimum.x = p.getX();
+            if (p.getX() > maximum.getX())
+                maximum.x = p.getX();
+            if (p.getY() < minimum.getY())
+                minimum.y = p.getY();
+            if (p.getY() > maximum.getY())
+                maximum.y = p.getY();
+            if (p.getZ() < minimum.getZ())
+                minimum.z = p.getZ();
+            if (p.getZ() > maximum.getZ())
+                maximum.z = p.getZ();
         }
     }
 
@@ -271,17 +271,17 @@ public class BoundingBox {
      * @param z z coordinate of the point
      */
     public final void include(float x, float y, float z) {
-        if (x < minimum.x)
+        if (x < minimum.getX())
             minimum.x = x;
-        if (x > maximum.x)
+        if (x > maximum.getX())
             maximum.x = x;
-        if (y < minimum.y)
+        if (y < minimum.getY())
             minimum.y = y;
-        if (y > maximum.y)
+        if (y > maximum.getY())
             maximum.y = y;
-        if (z < minimum.z)
+        if (z < minimum.getZ())
             minimum.z = z;
-        if (z > maximum.z)
+        if (z > maximum.getZ())
             maximum.z = z;
     }
 
@@ -293,23 +293,23 @@ public class BoundingBox {
      */
     public final void include(BoundingBox b) {
         if (b != null) {
-            if (b.minimum.x < minimum.x)
-                minimum.x = b.minimum.x;
-            if (b.maximum.x > maximum.x)
-                maximum.x = b.maximum.x;
-            if (b.minimum.y < minimum.y)
-                minimum.y = b.minimum.y;
-            if (b.maximum.y > maximum.y)
-                maximum.y = b.maximum.y;
-            if (b.minimum.z < minimum.z)
-                minimum.z = b.minimum.z;
-            if (b.maximum.z > maximum.z)
-                maximum.z = b.maximum.z;
+            if (b.minimum.getX() < minimum.getX())
+                minimum.x = b.minimum.getX();
+            if (b.maximum.getX() > maximum.getX())
+                maximum.x = b.maximum.getX();
+            if (b.minimum.getY() < minimum.getY())
+                minimum.y = b.minimum.getY();
+            if (b.maximum.getY() > maximum.getY())
+                maximum.y = b.maximum.getY();
+            if (b.minimum.getZ() < minimum.getZ())
+                minimum.z = b.minimum.getZ();
+            if (b.maximum.getZ() > maximum.getZ())
+                maximum.z = b.maximum.getZ();
         }
     }
 
     @Override
     public final String toString() {
-        return String.format("(%.2f, %.2f, %.2f) to (%.2f, %.2f, %.2f)", minimum.x, minimum.y, minimum.z, maximum.x, maximum.y, maximum.z);
+        return String.format("(%.2f, %.2f, %.2f) to (%.2f, %.2f, %.2f)", minimum.getX(), minimum.getY(), minimum.getZ(), maximum.getX(), maximum.getY(), maximum.getZ());
     }
 }

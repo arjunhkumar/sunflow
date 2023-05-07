@@ -257,9 +257,9 @@ public final class Matrix4 {
      */
     public final Point3 transformP(Point3 p) {
         Point3 rp = new Point3();
-        rp.x = m00 * p.x + m01 * p.y + m02 * p.z + m03;
-        rp.y = m10 * p.x + m11 * p.y + m12 * p.z + m13;
-        rp.z = m20 * p.x + m21 * p.y + m22 * p.z + m23;
+        rp.x = m00 * p.getX() + m01 * p.getY() + m02 * p.getZ() + m03;
+        rp.y = m10 * p.getX() + m11 * p.getY() + m12 * p.getZ() + m13;
+        rp.z = m20 * p.getX() + m21 * p.getY() + m22 * p.getZ() + m23;
         return rp;
     }
 
@@ -537,7 +537,7 @@ public final class Matrix4 {
      */
     public final static Matrix4 lookAt(Point3 eye, Point3 target, Vector3 up) {
         Matrix4 m = Matrix4.fromBasis(OrthoNormalBasis.makeFromWV(Point3.sub(eye, target, new Vector3()), up));
-        return Matrix4.translation(eye.x, eye.y, eye.z).multiply(m);
+        return Matrix4.translation(eye.getX(), eye.getY(), eye.getZ()).multiply(m);
     }
 
     public final static Matrix4 blend(Matrix4 m0, Matrix4 m1, float t) {

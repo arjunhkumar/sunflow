@@ -178,7 +178,7 @@ public class KDTree implements AccelerationStructure {
         sorting.end();
         // build the actual tree
         BuildStats stats = new BuildStats();
-        buildTree(bounds.getMinimum().x, bounds.getMaximum().x, bounds.getMinimum().y, bounds.getMaximum().y, bounds.getMinimum().z, bounds.getMaximum().z, task, 1, tempTree, 0, tempList, stats);
+        buildTree(bounds.getMinimum().getX(), bounds.getMaximum().getX(), bounds.getMinimum().getY(), bounds.getMaximum().getY(), bounds.getMinimum().getZ(), bounds.getMaximum().getZ(), task, 1, tempTree, 0, tempList, stats);
         t.end();
         // write out final arrays
         // free some memory
@@ -241,14 +241,14 @@ public class KDTree implements AccelerationStructure {
                 Point3 min = bounds.getMinimum();
                 Point3 max = bounds.getMaximum();
                 file.write(String.format("o node%d\n", offset));
-                file.write(String.format("v %g %g %g\n", max.x, max.y, min.z));
-                file.write(String.format("v %g %g %g\n", max.x, min.y, min.z));
-                file.write(String.format("v %g %g %g\n", min.x, min.y, min.z));
-                file.write(String.format("v %g %g %g\n", min.x, max.y, min.z));
-                file.write(String.format("v %g %g %g\n", max.x, max.y, max.z));
-                file.write(String.format("v %g %g %g\n", max.x, min.y, max.z));
-                file.write(String.format("v %g %g %g\n", min.x, min.y, max.z));
-                file.write(String.format("v %g %g %g\n", min.x, max.y, max.z));
+                file.write(String.format("v %g %g %g\n", max.getX(), max.getY(), min.getZ()));
+                file.write(String.format("v %g %g %g\n", max.getX(), min.getY(), min.getZ()));
+                file.write(String.format("v %g %g %g\n", min.getX(), min.getY(), min.getZ()));
+                file.write(String.format("v %g %g %g\n", min.getX(), max.getY(), min.getZ()));
+                file.write(String.format("v %g %g %g\n", max.getX(), max.getY(), max.getZ()));
+                file.write(String.format("v %g %g %g\n", max.getX(), min.getY(), max.getZ()));
+                file.write(String.format("v %g %g %g\n", min.getX(), min.getY(), max.getZ()));
+                file.write(String.format("v %g %g %g\n", min.getX(), max.getY(), max.getZ()));
                 int v0 = vertOffset;
                 file.write(String.format("usemtl mtl%d\n", n));
                 file.write("s off\n");
@@ -268,18 +268,18 @@ public class KDTree implements AccelerationStructure {
             nextOffset &= ~(3 << 30);
             switch (axis) {
                 case 0:
-                    max = bounds.getMaximum().x;
+                    max = bounds.getMaximum().getX();
                     bounds.getMaximum().x = split;
                     v0 = dumpObj(nextOffset, vertOffset, maxN, bounds, file, mtlFile);
                     // restore and go to other side
                     bounds.getMaximum().x = max;
-                    min = bounds.getMinimum().x;
+                    min = bounds.getMinimum().getX();
                     bounds.getMinimum().x = split;
                     v0 = dumpObj(nextOffset + 2, v0, maxN, bounds, file, mtlFile);
                     bounds.getMinimum().x = min;
                     break;
                 case 1 << 30:
-                    max = bounds.getMaximum().y;
+                    max = bounds.getMaximum().getY();
                     bounds.getMaximum().y = split;
                     v0 = dumpObj(nextOffset, vertOffset, maxN, bounds, file, mtlFile);
                     // restore and go to other side
@@ -290,12 +290,12 @@ public class KDTree implements AccelerationStructure {
                     bounds.getMinimum().y = min;
                     break;
                 case 2 << 30:
-                    max = bounds.getMaximum().z;
+                    max = bounds.getMaximum().getZ();
                     bounds.getMaximum().z = split;
                     v0 = dumpObj(nextOffset, vertOffset, maxN, bounds, file, mtlFile);
                     // restore and go to other side
                     bounds.getMaximum().z = max;
-                    min = bounds.getMinimum().z;
+                    min = bounds.getMinimum().getZ();
                     bounds.getMinimum().z = split;
                     v0 = dumpObj(nextOffset + 2, v0, maxN, bounds, file, mtlFile);
                     // restore and go to other side
@@ -646,8 +646,8 @@ public class KDTree implements AccelerationStructure {
         float orgX = r.ox;
         float dirX = r.dx, invDirX = 1 / dirX;
         float t1, t2;
-        t1 = (bounds.getMinimum().x - orgX) * invDirX;
-        t2 = (bounds.getMaximum().x - orgX) * invDirX;
+        t1 = (bounds.getMinimum().getX() - orgX) * invDirX;
+        t2 = (bounds.getMaximum().getX() - orgX) * invDirX;
         if (invDirX > 0) {
             if (t1 > intervalMin)
                 intervalMin = t1;
@@ -663,8 +663,8 @@ public class KDTree implements AccelerationStructure {
             return;
         float orgY = r.oy;
         float dirY = r.dy, invDirY = 1 / dirY;
-        t1 = (bounds.getMinimum().y - orgY) * invDirY;
-        t2 = (bounds.getMaximum().y - orgY) * invDirY;
+        t1 = (bounds.getMinimum().getY() - orgY) * invDirY;
+        t2 = (bounds.getMaximum().getY() - orgY) * invDirY;
         if (invDirY > 0) {
             if (t1 > intervalMin)
                 intervalMin = t1;

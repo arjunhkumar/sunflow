@@ -86,7 +86,7 @@ public class SphereFlake implements PrimitiveList {
         float cy = state.getV();
         float cz = state.getW();
 
-        state.getNormal().set(localPoint.x - cx, localPoint.y - cy, localPoint.z - cz);
+        state.getNormal().set(localPoint.getX() - cx, localPoint.getY() - cy, localPoint.getZ() - cz);
         state.getNormal().normalize();
 
         float phi = (float) Math.atan2(state.getNormal().y, state.getNormal().x);

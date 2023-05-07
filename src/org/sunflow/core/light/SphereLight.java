@@ -87,9 +87,9 @@ public class SphereLight implements LightSource, Shader {
             if (cosNx <= 0)
                 continue;
 
-            float ocx = state.getPoint().x - center.x;
-            float ocy = state.getPoint().y - center.y;
-            float ocz = state.getPoint().z - center.z;
+            float ocx = state.getPoint().getX() - center.getX();
+            float ocy = state.getPoint().getY() - center.getY();
+            float ocz = state.getPoint().getZ() - center.getZ();
             float qa = Vector3.dot(dir, dir);
             float qb = 2 * ((dir.x * ocx) + (dir.y * ocy) + (dir.z * ocz));
             float qc = ((ocx * ocx) + (ocy * ocy) + (ocz * ocz)) - r2;
@@ -114,9 +114,9 @@ public class SphereLight implements LightSource, Shader {
         float phi = (float) (2 * Math.PI * randY2);
         float x = r * (float) Math.cos(phi);
         float y = r * (float) Math.sin(phi);
-        p.x = center.x + x * radius;
-        p.y = center.y + y * radius;
-        p.z = center.z + z * radius;
+        p.x = center.getX() + x * radius;
+        p.y = center.getY() + y * radius;
+        p.z = center.getZ() + z * radius;
         OrthoNormalBasis basis = OrthoNormalBasis.makeFromW(new Vector3(x, y, z));
         phi = (float) (2 * Math.PI * randX1);
         float cosPhi = (float) Math.cos(phi);
@@ -148,6 +148,6 @@ public class SphereLight implements LightSource, Shader {
     }
 
     public Instance createInstance() {
-        return Instance.createTemporary(new Sphere(), Matrix4.translation(center.x, center.y, center.z).multiply(Matrix4.scale(radius)), this);
+        return Instance.createTemporary(new Sphere(), Matrix4.translation(center.getX(), center.getY(), center.getZ()).multiply(Matrix4.scale(radius)), this);
     }
 }

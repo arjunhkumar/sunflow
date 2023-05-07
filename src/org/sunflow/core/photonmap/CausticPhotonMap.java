@@ -128,19 +128,19 @@ public final class CausticPhotonMap implements CausticPhotonMapInterface {
                 float tmp;
                 switch (axis) {
                     case Photon.SPLIT_X:
-                        tmp = bounds.getMaximum().x;
+                        tmp = bounds.getMaximum().getX();
                         bounds.getMaximum().x = temp[index].x;
                         balanceSegment(temp, 2 * index, start, median - 1);
                         bounds.getMaximum().x = tmp;
                         break;
                     case Photon.SPLIT_Y:
-                        tmp = bounds.getMaximum().y;
+                        tmp = bounds.getMaximum().getY();
                         bounds.getMaximum().y = temp[index].y;
                         balanceSegment(temp, 2 * index, start, median - 1);
                         bounds.getMaximum().y = tmp;
                         break;
                     default:
-                        tmp = bounds.getMaximum().z;
+                        tmp = bounds.getMaximum().getZ();
                         bounds.getMaximum().z = temp[index].z;
                         balanceSegment(temp, 2 * index, start, median - 1);
                         bounds.getMaximum().z = tmp;
@@ -153,19 +153,19 @@ public final class CausticPhotonMap implements CausticPhotonMapInterface {
                 float tmp;
                 switch (axis) {
                     case Photon.SPLIT_X:
-                        tmp = bounds.getMinimum().x;
+                        tmp = bounds.getMinimum().getX();
                         bounds.getMinimum().x = temp[index].x;
                         balanceSegment(temp, (2 * index) + 1, median + 1, end);
                         bounds.getMinimum().x = tmp;
                         break;
                     case Photon.SPLIT_Y:
-                        tmp = bounds.getMinimum().y;
+                        tmp = bounds.getMinimum().getY();
                         bounds.getMinimum().y = temp[index].y;
                         balanceSegment(temp, (2 * index) + 1, median + 1, end);
                         bounds.getMinimum().y = tmp;
                         break;
                     default:
-                        tmp = bounds.getMinimum().z;
+                        tmp = bounds.getMinimum().getZ();
                         bounds.getMinimum().z = temp[index].z;
                         balanceSegment(temp, (2 * index) + 1, median + 1, end);
                         bounds.getMinimum().z = tmp;
@@ -256,9 +256,9 @@ public final class CausticPhotonMap implements CausticPhotonMapInterface {
             max = n;
             found = 0;
             gotHeap = false;
-            px = p.x;
-            py = p.y;
-            pz = p.z;
+            px = p.getX();
+            py = p.getY();
+            pz = p.getZ();
             dist2 = new float[n + 1];
             index = new Photon[n + 1];
             dist2[0] = maxDist2;
@@ -267,9 +267,9 @@ public final class CausticPhotonMap implements CausticPhotonMapInterface {
         void reset(Point3 p, float maxDist2) {
             found = 0;
             gotHeap = false;
-            px = p.x;
-            py = p.y;
-            pz = p.z;
+            px = p.getX();
+            py = p.getY();
+            pz = p.getZ();
             dist2[0] = maxDist2;
         }
 
@@ -340,9 +340,9 @@ public final class CausticPhotonMap implements CausticPhotonMapInterface {
         static final int SPLIT_MASK = 3;
 
         Photon(Point3 p, Vector3 dir, Color power) {
-            x = p.x;
-            y = p.y;
-            z = p.z;
+            x = p.getX();
+            y = p.getY();
+            z = p.getZ();
             this.dir = dir.encode();
             this.power = power.toRGBE();
             flags = SPLIT_X;
