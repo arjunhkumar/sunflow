@@ -20,6 +20,7 @@ import org.sunflow.math.QMC;
 import org.sunflow.system.Timer;
 import org.sunflow.system.UI;
 import org.sunflow.system.UI.Module;
+import org.sunflow.math.Vector3;
 
 public class BucketRenderer implements ImageSampler {
     private Scene scene;
@@ -401,7 +402,7 @@ public class BucketRenderer implements ImageSampler {
                 c = state.getResult();
                 shader = state.getShader();
                 instance = state.getInstance();
-                if (state.getNormal() != null) {
+                if (state.getNormal() != new Vector3()) {
                     nx = state.getNormal().x;
                     ny = state.getNormal().y;
                     nz = state.getNormal().z;

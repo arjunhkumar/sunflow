@@ -17,7 +17,7 @@ public class PrimIDShader implements Shader {
 
     public Color getRadiance(ShadingState state) {
         Vector3 n = state.getNormal();
-        float f = n == null ? 1.0f : Math.abs(state.getRay().dot(n));
+        float f = n == new Vector3() ? 1.0f : Math.abs(state.getRay().dot(n));
         return BORDERS[state.getPrimitiveID() % BORDERS.length].copy().mul(f);
     }
 

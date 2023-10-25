@@ -18,7 +18,7 @@ public class QuickGrayShader implements Shader {
     }
 
     public Color getRadiance(ShadingState state) {
-        if (state.getNormal() == null) {
+        if (state.getNormal() == new Vector3()) {
             // if this shader has been applied to an infinite instance because
             // of shader overrides
             // run the default shader, otherwise, just shade black

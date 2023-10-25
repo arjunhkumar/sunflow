@@ -14,7 +14,7 @@ public class NormalShader implements Shader {
 
     public Color getRadiance(ShadingState state) {
         Vector3 n = state.getNormal();
-        if (n == null)
+        if (n == new Vector3())
             return Color.BLACK;
         float r = (n.x + 1) * 0.5f;
         float g = (n.y + 1) * 0.5f;

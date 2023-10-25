@@ -97,7 +97,7 @@ public class BezierMesh implements Tesselatable {
 //        p.y = py;
 //        p.z = pz;
         p = new Point3(px, py, pz);
-        if (n != null) {
+        if (n != new Vector3()) {
             float dpdux = 0;
             float dpduy = 0;
             float dpduz = 0;
@@ -134,7 +134,7 @@ public class BezierMesh implements Tesselatable {
         float step = 1.0f / subdivs;
         int vstride = subdivs + 1;
         Point3 p = new Point3();
-        Vector3 n = smooth ? new Vector3() : null;
+        Vector3 n = new Vector3();
         for (float[] patch : patches) {
             // create patch vertices
             for (int i = 0, voff = 0; i <= subdivs; i++) {

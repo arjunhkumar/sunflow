@@ -1,6 +1,6 @@
 package org.sunflow.math;
 
-public final class Vector3 {
+public final primitive class Vector3 {
     private static final float[] COS_THETA = new float[256];
     private static final float[] SIN_THETA = new float[256];
     private static final float[] COS_PHI = new float[256];
@@ -8,6 +8,7 @@ public final class Vector3 {
 
     /** AR07 Modified to make this class primitive */
     public final float x, y, z;
+//    public final boolean isNull;
 
     static {
         // precompute tables to compress unit vectors

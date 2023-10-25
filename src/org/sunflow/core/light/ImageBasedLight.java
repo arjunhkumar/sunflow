@@ -42,15 +42,16 @@ public class ImageBasedLight implements PrimitiveList, LightSource, Shader {
     }
 
     private void updateBasis(Vector3 center, Vector3 up) {
-        if (center != null && up != null) {
+        /** AR07 Modified to make Vector3 class primitive */
+//        if (center != null && up != null) {
             basis = OrthoNormalBasis.makeFromWV(center, up);
             basis.swapWU();
             basis.flipV();
-        }
+//        }
     }
 
     public boolean update(ParameterList pl, SunflowAPI api) {
-        updateBasis(pl.getVector("center", null), pl.getVector("up", null));
+        updateBasis(pl.getVector("center", new Vector3()), pl.getVector("up", new Vector3()));
         numSamples = pl.getInt("samples", numSamples);
         numLowSamples = pl.getInt("lowsamples", numLowSamples);
         String filename = pl.getString("texture", null);
